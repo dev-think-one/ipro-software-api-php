@@ -1,0 +1,3 @@
+preset: recommended
+disabled:
+  - unused_use
