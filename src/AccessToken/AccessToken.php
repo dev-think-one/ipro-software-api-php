@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Angecode\IproSoftware\AccessToken;
 
-
-use Carbon\Carbon;
 use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
+use Carbon\Carbon;
 
 class AccessToken implements AccessTokenInterface
 {
@@ -16,6 +14,7 @@ class AccessToken implements AccessTokenInterface
 
     /**
      * AccessToken constructor.
+     *
      * @param string|null $accessToken
      * @param string|null $tokenType
      * @param string|null $expiresIn
@@ -30,22 +29,24 @@ class AccessToken implements AccessTokenInterface
     }
 
     /**
-     * Specify data which should be serialized to JSON
+     * Specify data which should be serialized to JSON.
+     *
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
     {
         return [
             'access_token' => $this->accessToken,
-            'token_type' => $this->tokenType,
-            'expires_in' => $this->expiresIn,
-            'expires_at' => $this->expiresAt,
+            'token_type'   => $this->tokenType,
+            'expires_in'   => $this->expiresIn,
+            'expires_at'   => $this->expiresAt,
         ];
     }
-
 
     public static function makeFromJson(string $json): ?AccessTokenInterface
     {
@@ -64,17 +65,17 @@ class AccessToken implements AccessTokenInterface
 
     public function hasAccessToken(): bool
     {
-        return (!!$this->accessToken && !$this->isTokenExpired());
+        return (bool) $this->accessToken && !$this->isTokenExpired();
     }
 
     public function isTokenExpired(): bool
     {
-        return (Carbon::parse($this->expiresAt)
-            ->lessThanOrEqualTo(Carbon::now()));
+        return Carbon::parse($this->expiresAt)
+            ->lessThanOrEqualTo(Carbon::now());
     }
 
     public function getAuthorizationHeader(): string
     {
-        return ucfirst($this->tokenType) . ' ' . $this->accessToken;
+        return ucfirst($this->tokenType).' '.$this->accessToken;
     }
 }

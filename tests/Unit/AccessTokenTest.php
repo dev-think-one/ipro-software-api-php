@@ -8,7 +8,6 @@ use Carbon\Carbon;
 
 class AccessTokenTest extends TestCase
 {
-
     public function testIfAccessTokenValid()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
@@ -45,9 +44,9 @@ class AccessTokenTest extends TestCase
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString()
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ]));
 
         $this->assertTrue($accessToken->hasAccessToken());
@@ -58,20 +57,19 @@ class AccessTokenTest extends TestCase
         $accessToken = AccessToken::makeFromJson(json_encode([
             'token_type' => 'some_type',
             'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString()
+            'expires_at' => Carbon::now()->addMinute()->toString(),
         ]));
 
         $this->assertFalse($accessToken->hasAccessToken());
     }
 
-
     public function testIfAccessTokenJsonSerialize()
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString()
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ];
 
         $encodedData = json_encode($data);
@@ -85,21 +83,17 @@ class AccessTokenTest extends TestCase
         $this->assertEquals($encodedData, json_encode($accessToken));
     }
 
-
     public function testIfAccessTokenAuthHeader()
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString()
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ];
-
 
         $accessToken = AccessToken::makeFromJson(json_encode($data));
 
-
-        $this->assertEquals('Some_type ' . $data['access_token'], $accessToken->getAuthorizationHeader());
+        $this->assertEquals('Some_type '.$data['access_token'], $accessToken->getAuthorizationHeader());
     }
-
 }

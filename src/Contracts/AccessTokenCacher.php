@@ -8,7 +8,8 @@ interface AccessTokenCacher
      * Store an item in the cache.
      *
      * @param mixed $accessToken
-     * @param int $ttl - time in seconds
+     * @param int   $ttl         - time in seconds
+     *
      * @return bool
      * @static
      */
@@ -21,5 +22,4 @@ interface AccessTokenCacher
      * @static
      */
     public function get(): ?AccessToken;
-
 }

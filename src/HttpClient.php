@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Angecode\IproSoftware;
 
-
-use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
 use Angecode\IproSoftware\Contracts\AccessToken;
+use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
@@ -16,8 +14,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class HttpClient
- * @package Angecode\IproSoftware
+ * Class HttpClient.
  *
  * @method get($path = '', array $options = [])
  * @method post($path = '', array $options = [])
@@ -28,9 +25,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class HttpClient implements Contracts\HttpClient
 {
-
     /**
-     * HTTP Methods
+     * HTTP Methods.
      */
     const HTTP_METHOD_GET = 'GET';
     const HTTP_METHOD_POST = 'POST';
@@ -75,9 +71,10 @@ class HttpClient implements Contracts\HttpClient
 
     /**
      * HttpClient constructor.
+     *
      * @param AccessTokenCacher $cacheManager
      * @param ClientCredentials $clientCredentials
-     * @param array $httpConfiguration
+     * @param array             $httpConfiguration
      */
     public function __construct(ClientCredentials $clientCredentials, AccessTokenCacher $cacheManager, array $httpConfiguration = [])
     {
@@ -97,9 +94,11 @@ class HttpClient implements Contracts\HttpClient
     /**
      * @param $method
      * @param $arguments
-     * @return mixed|ResponseInterface
+     *
      * @throws IproSoftwareApiAccessTokenException
      * @throws GuzzleException
+     *
+     * @return mixed|ResponseInterface
      */
     public function __call($method, $arguments)
     {
@@ -107,11 +106,12 @@ class HttpClient implements Contracts\HttpClient
             return $this->request(self::HTTP_METHOD_GET, $arguments[0], $arguments[1] ?? []);
         }
 
-        throw new BadMethodCallException("Method " . $method . " not found on " . get_class() . ".", 500);
+        throw new BadMethodCallException('Method '.$method.' not found on '.get_class().'.', 500);
     }
 
     /**
      * @param AccessTokenCacher $cacheManager
+     *
      * @return self
      */
     public function setCacheManager(AccessTokenCacher $cacheManager): Contracts\HttpClient
@@ -132,10 +132,12 @@ class HttpClient implements Contracts\HttpClient
     /**
      * @param $method
      * @param string $path
-     * @param array $options
-     * @return mixed|ResponseInterface
+     * @param array  $options
+     *
      * @throws GuzzleException
      * @throws IproSoftwareApiAccessTokenException
+     *
+     * @return mixed|ResponseInterface
      */
     public function request($method, $path = '', array $options = []): ResponseInterface
     {
@@ -161,12 +163,13 @@ class HttpClient implements Contracts\HttpClient
      */
     public function hasAccessToken(): bool
     {
-        return ($this->accessToken instanceof AccessTokenInterface && $this->accessToken->hasAccessToken());
+        return $this->accessToken instanceof AccessTokenInterface && $this->accessToken->hasAccessToken();
     }
 
     /**
-     * @return AccessTokenInterface
      * @throws IproSoftwareApiAccessTokenException
+     *
+     * @return AccessTokenInterface
      */
     public function generateAccessToken(): AccessTokenInterface
     {
@@ -177,11 +180,11 @@ class HttpClient implements Contracts\HttpClient
             $response = $this->http->post($this->clientCredentials->tokenEndpoint, [
                 'auth' => [
                     $this->clientCredentials->clientId,
-                    $this->clientCredentials->clientSecret
+                    $this->clientCredentials->clientSecret,
                 ],
                 'form_params' => [
-                    'grant_type' => 'client_credentials'
-                ]
+                    'grant_type' => 'client_credentials',
+                ],
             ]);
 
             if ($response->getStatusCode() != 200) {
