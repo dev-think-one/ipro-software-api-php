@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Angecode\IproSoftware;
-
 
 use Angecode\IproSoftware\AccessToken\NoneCacher;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
@@ -12,7 +10,6 @@ use Angecode\IproSoftware\Traits\HasApiMethods;
 
 class Client
 {
-
     use HasApiMethods;
 
     /** @var \Angecode\IproSoftware\Contracts\HttpClient */
@@ -20,12 +17,13 @@ class Client
 
     /**
      * Client constructor.
+     *
      * @param array $configurations
+     *
      * @throws IproSoftwareApiException
      */
     public function __construct($configurations = [])
     {
-
         if (isset($configurations['http_client'])) {
             $this->setHttpClient($configurations['http_client']);
         }
@@ -34,6 +32,7 @@ class Client
 
     /**
      * @param Contracts\HttpClient $httpClient
+     *
      * @return Client
      */
     public function setHttpClient(Contracts\HttpClient $httpClient): self
@@ -45,6 +44,7 @@ class Client
 
     /**
      * @param AccessTokenCacher $cacheManager
+     *
      * @return Client
      */
     public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
@@ -56,6 +56,7 @@ class Client
 
     /**
      * @param array $configurations
+     *
      * @throws IproSoftwareApiException
      */
     protected function tryCreateDefaultHttpClient(array $configurations)
@@ -73,5 +74,4 @@ class Client
     {
         return $this->httpClient;
     }
-
 }

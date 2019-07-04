@@ -14,7 +14,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpClientTest extends TestCase
 {
-
     protected $clientCredentials;
 
     protected function setUp()
@@ -24,7 +23,6 @@ class HttpClientTest extends TestCase
         $this->clientCredentials = new ClientCredentials(uniqid(), uniqid(), uniqid());
     }
 
-
     public function testAfterInitAccessTokenIsNotValid()
     {
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
@@ -32,13 +30,11 @@ class HttpClientTest extends TestCase
         $this->assertFalse($httpClient->hasAccessToken());
     }
 
-
     public function testIfAccessTokenGetFromCacheThenNoNeedApiCall()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
 
         $this->assertTrue($accessToken->hasAccessToken());
-
 
         $cacheManager = Mockery::mock(NoneCacher::class);
 
@@ -51,10 +47,8 @@ class HttpClientTest extends TestCase
         $this->assertEquals($accessToken, $httpClient->generateAccessToken());
     }
 
-
     public function testIfAccessTokenNotInCacheThenNeedApiCall()
     {
-
         $response = Mockery::mock(ResponseInterface::class);
         $client = Mockery::mock(Client::class);
 
@@ -66,8 +60,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type' => 'some_type',
-                'expires_in' => 300,
+                'token_type'   => 'some_type',
+                'expires_in'   => 300,
             ]));
 
         $client->shouldReceive('post')
@@ -81,5 +75,4 @@ class HttpClientTest extends TestCase
 
         $this->assertTrue($httpClient->hasAccessToken());
     }
-
 }
