@@ -7,6 +7,7 @@ use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use BadMethodCallException;
 use Carbon\Carbon;
 use GuzzleHttp\ClientInterface;
@@ -103,7 +104,7 @@ class HttpClient implements Contracts\HttpClient
     public function __call($method, $arguments)
     {
         if (in_array(strtoupper($method), self::HTTP_METHODS)) {
-            return $this->request(self::HTTP_METHOD_GET, $arguments[0], $arguments[1] ?? []);
+            return $this->request(strtoupper($method), $arguments[0], $arguments[1] ?? []);
         }
 
         throw new BadMethodCallException('Method '.$method.' not found on '.get_class().'.', 500);
@@ -123,10 +124,28 @@ class HttpClient implements Contracts\HttpClient
 
     /**
      * @param ClientInterface $http
+     *
+     * @return self
      */
-    public function setHttp(ClientInterface $http): void
+    public function setHttp(ClientInterface $http): Contracts\HttpClient
     {
         $this->http = $http;
+
+        return $this;
+    }
+
+    /**
+     * @param null $option
+     * @return mixed
+     * @throws IproSoftwareApiException
+     */
+    public function getConfig($option = null)
+    {
+        if(!is_null($this->http)) {
+            return $this->http->getConfig($option);
+        }
+
+        throw new IproSoftwareApiException('Http client not specified');
     }
 
     /**

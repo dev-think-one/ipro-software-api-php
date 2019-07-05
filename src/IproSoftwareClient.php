@@ -8,7 +8,7 @@ use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use Angecode\IproSoftware\Traits\HasApiMethods;
 
-class Client
+class IproSoftwareClient
 {
     use HasApiMethods;
 
@@ -24,16 +24,17 @@ class Client
      */
     public function __construct($configurations = [])
     {
-        if (isset($configurations['http_client'])) {
-            $this->setHttpClient($configurations['http_client']);
+        if (isset($configurations['requests_path_prefix']) && $configurations['requests_path_prefix']) {
+            $this->setPathPrefix($configurations['requests_path_prefix']);
         }
+
         $this->tryCreateDefaultHttpClient($configurations);
     }
 
     /**
      * @param Contracts\HttpClient $httpClient
      *
-     * @return Client
+     * @return IproSoftwareClient
      */
     public function setHttpClient(Contracts\HttpClient $httpClient): self
     {
@@ -45,10 +46,14 @@ class Client
     /**
      * @param AccessTokenCacher $cacheManager
      *
-     * @return Client
+     * @return IproSoftwareClient
+     * @throws IproSoftwareApiException
      */
     public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
     {
+        if (!($this->httpClient instanceof Contracts\HttpClient)) {
+            throw new IproSoftwareApiException('A HttpClient must be set at the beginning.', 500);
+        }
         $this->httpClient->setCacheManager($cacheManager);
 
         return $this;
@@ -59,18 +64,23 @@ class Client
      *
      * @throws IproSoftwareApiException
      */
-    protected function tryCreateDefaultHttpClient(array $configurations)
+    protected function tryCreateDefaultHttpClient(array $configurations = [])
     {
-        $clientCredentials = new ClientCredentials($configurations['api_host'], $configurations['client_id'], $configurations['client_secret']);
+        $clientCredentials = new ClientCredentials(
+            $configurations['api_host'] ?? '',
+            $configurations['client_id'] ?? '',
+            $configurations['client_secret'] ?? '');
 
-        if (!$clientCredentials->valid()) {
-            throw new IproSoftwareApiException('Fields api_host, client_id, client_secret are required');
+        if (isset($configurations['oauth_endpoint'])) {
+            $clientCredentials->tokenEndpoint = $configurations['oauth_endpoint'];
         }
 
-        $this->httpClient = new HttpClient($clientCredentials, $configurations['cache_manager'] ?? new NoneCacher(), $configurations);
+        if ($clientCredentials->valid()) {
+            $this->httpClient = new HttpClient($clientCredentials, $configurations['cache_manager'] ?? new NoneCacher(), $configurations);
+        }
     }
 
-    public function httpClient(): \Angecode\IproSoftware\Contracts\HttpClient
+    public function httpClient(): ?\Angecode\IproSoftware\Contracts\HttpClient
     {
         return $this->httpClient;
     }

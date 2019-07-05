@@ -9,6 +9,7 @@ use Angecode\IproSoftware\HttpClient;
 use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
@@ -60,8 +61,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type'   => 'some_type',
-                'expires_in'   => 300,
+                'token_type' => 'some_type',
+                'expires_in' => 300,
             ]));
 
         $client->shouldReceive('post')
@@ -74,5 +75,57 @@ class HttpClientTest extends TestCase
         $httpClient->generateAccessToken();
 
         $this->assertTrue($httpClient->hasAccessToken());
+    }
+
+    public function testRequest()
+    {
+
+        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
+        $client = Mockery::mock(Client::class);
+        $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
+        $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
+
+        $httpClient->setHttp($client);
+
+
+        $response = new Response(200);
+
+        $options = ['headers' => [
+            'Authorization' => $accessToken->getAuthorizationHeader()
+        ]];
+
+        $client->shouldReceive('request')
+            ->with('method_name', 'path/to/endpoint', $options)
+            ->once()
+            ->andReturn($response);
+
+        $clientResponse = $httpClient->request('method_name', 'path/to/endpoint');
+
+        $this->assertEquals($response, $clientResponse);
+    }
+
+    public function testMagicCall() {
+        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
+        $client = Mockery::mock(Client::class);
+        $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
+        $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
+
+        $httpClient->setHttp($client);
+        $response = new Response(200);
+
+        $options = ['headers' => [
+            'Authorization' => $accessToken->getAuthorizationHeader()
+        ]];
+
+        foreach (HttpClient::HTTP_METHODS as $METHOD) {
+            $client->shouldReceive('request')
+                ->with($METHOD, 'path/to/endpoint', $options)
+                ->once()
+                ->andReturn($response);
+
+            $clientResponse = call_user_func([$httpClient, strtolower($METHOD)], 'path/to/endpoint');
+
+            $this->assertEquals($response, $clientResponse);
+        }
     }
 }

@@ -1,8 +1,10 @@
 {
   "name": "yaroslawww/ipro-software-api-php",
-  "description": "iProSoftware api client",
+  "description": "iProSoftware api client (php)",
   "keywords": [
     "iprosoftware",
+    "ipro-software",
+    "IproSoftware",
     "api",
     "php"
   ],

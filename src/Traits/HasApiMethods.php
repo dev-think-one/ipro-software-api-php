@@ -2,6 +2,7 @@
 
 namespace Angecode\IproSoftware\Traits;
 
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use Angecode\IproSoftware\HttpClient;
 use BadMethodCallException;
 use Psr\Http\Message\ResponseInterface;
@@ -58,49 +59,49 @@ trait HasApiMethods
      */
     protected $methods = [
         /* Settings */
-        'getSourcesList'      => ['get', 'sources'],
+        'getSourcesList' => ['get', 'sources'],
         'getBookingRulesList' => ['get', 'bookingrules'],
-        'getBookingTagsList'  => ['get', 'bookingtags'],
-        'getLocationsList'    => ['get', 'locations'],
-        'getAttributesList'   => ['get', 'amenities'],
+        'getBookingTagsList' => ['get', 'bookingtags'],
+        'getLocationsList' => ['get', 'locations'],
+        'getAttributesList' => ['get', 'amenities'],
         'getContactTypesList' => ['get', 'contacttypes'],
         /* Contacts */
-        'searchContacts'        => ['get', 'contacts'],
-        'getContact'            => ['get', 'contact/%s'],
-        'getExternalContact'    => ['get', 'externalcontactID'],
+        'searchContacts' => ['get', 'contacts'],
+        'getContact' => ['get', 'contact/%s'],
+        'getExternalContact' => ['get', 'externalcontactID'],
         'createOrUpdateContact' => ['post', 'contacts'],
         /* Properties */
-        'getPropertiesList'                => ['get', 'properties'],
-        'searchProperties'                 => ['get', 'propertysearch'],
+        'getPropertiesList' => ['get', 'properties'],
+        'searchProperties' => ['get', 'propertysearch'],
         'getPropertiesReferenceLookupList' => ['get', 'properties/reflookup'],
-        'getPropertyDetails'               => ['get', 'property/%s'],
-        'getPropertyImages'                => ['get', 'property/%s/images'],
-        'getPropertyExtras'                => ['get', 'property/%s/extras'],
-        'getPropertyRates'                 => ['get', 'property/%s/rates'],
-        'getPropertyCustomRates'           => ['get', 'property/%s/customrates'],
-        'getPropertyAvailability'          => ['get', 'property/%s/availability'],
-        'getPropertyDayAvailability'       => ['get', 'property/%s/dayavailability'],
-        'getPropertyRooms'                 => ['get', 'property/%s/rooms'],
-        'getPropertyDistances'             => ['get', 'property/%s/distances'],
-        'getPropertyAll'                   => ['get', 'property/%s/all'],
-        'getPropertyEnquiries'             => ['get', 'property/%s/enquiries'],
-        'getPropertyWelcomepack'           => ['get', 'property/%s/welcomepack'],
+        'getPropertyDetails' => ['get', 'property/%s'],
+        'getPropertyImages' => ['get', 'property/%s/images'],
+        'getPropertyExtras' => ['get', 'property/%s/extras'],
+        'getPropertyRates' => ['get', 'property/%s/rates'],
+        'getPropertyCustomRates' => ['get', 'property/%s/customrates'],
+        'getPropertyAvailability' => ['get', 'property/%s/availability'],
+        'getPropertyDayAvailability' => ['get', 'property/%s/dayavailability'],
+        'getPropertyRooms' => ['get', 'property/%s/rooms'],
+        'getPropertyDistances' => ['get', 'property/%s/distances'],
+        'getPropertyAll' => ['get', 'property/%s/all'],
+        'getPropertyEnquiries' => ['get', 'property/%s/enquiries'],
+        'getPropertyWelcomepack' => ['get', 'property/%s/welcomepack'],
         /* Enquires */
         'createEnquiry' => ['post', 'enquiry'],
         /* Bookings */
-        'searchBookings'       => ['get', 'bookings'],
-        'calculateBooking'     => ['post', 'booking/calc'],
-        'createBooking'        => ['post', 'booking'],
+        'searchBookings' => ['get', 'bookings'],
+        'calculateBooking' => ['post', 'booking/calc'],
+        'createBooking' => ['post', 'booking'],
         'getStatementsByOwner' => ['get', 'statements'],
         /* Reviews */
         'getReviewsList' => ['get', 'reviews'],
-        'createReview'   => ['post', 'reviews'],
+        'createReview' => ['post', 'reviews'],
         /* Payments */
         'createPayment' => ['post', 'payments'],
         /* Offers & Deals */
-        'getLateDealsList'     => ['get', 'latedeals'],
+        'getLateDealsList' => ['get', 'latedeals'],
         'getSpecialOffersList' => ['get', 'specialoffers'],
-        'getVouchers'          => ['get', 'vouchers'],
+        'getVouchers' => ['get', 'vouchers'],
     ];
 
     abstract public function httpClient(): \Angecode\IproSoftware\Contracts\HttpClient;
@@ -109,16 +110,19 @@ trait HasApiMethods
      * Attempts to handle api method call.
      *
      * @param string $method
-     * @param array  $parameters
-     *
-     * @throws BadMethodCallException
+     * @param array $parameters
      *
      * @return object
+     * @throws BadMethodCallException
+     *
      */
     public function __call($method, $parameters)
     {
-        if ($signature = $this->getMethod($method)) {
-            $pathTemplate = $this->pathPrefix.$signature[1];
+        if ($signature = $this->getMethodData($method)) {
+            if(is_null($this->httpClient())) {
+                throw new IproSoftwareApiException('Please specify HttpClient or pass credentials to client constructor', 500);
+            }
+            $pathTemplate = $this->pathPrefix . $signature[1];
             preg_match_all('/\%/', $pathTemplate, $replacements);
             $replacementCount = isset($replacements[0]) ? count($replacements[0]) : 0;
             $replacementParams = array_splice($parameters, 0, $replacementCount);
@@ -129,7 +133,7 @@ trait HasApiMethods
             return call_user_func_array([$this->httpClient(), $signature[0]], $parameters);
         }
 
-        throw new BadMethodCallException('Method '.$method.' not found on '.get_class().'.', 500);
+        throw new BadMethodCallException('Method ' . $method . ' not found on ' . get_class() . '.', 500);
     }
 
     /**
@@ -145,13 +149,53 @@ trait HasApiMethods
     }
 
     /**
+     * @return string
+     */
+    public function getPathPrefix(): string
+    {
+        return $this->pathPrefix;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMethodsList(): array
+    {
+        return $this->methods;
+    }
+
+    /**
+     * @param string $method
+     * @return self
+     */
+    public function removeMethod(string $method): self
+    {
+        if (isset($this->methods[$method])) {
+            unset($this->methods[$method]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $methods
+     * @return self
+     */
+    public function mergeMethods(array $methods): self
+    {
+        array_merge($this->methods, $methods);
+
+        return $this;
+    }
+
+    /**
      * Get method form methods list.
      *
      * @param $method
      *
      * @return array|null
      */
-    protected function getMethod($method): ?array
+    protected function getMethodData($method): ?array
     {
         $validMethod = isset($this->methods[$method])
             && is_array($this->methods[$method])

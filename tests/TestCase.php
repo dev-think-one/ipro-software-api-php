@@ -3,7 +3,39 @@
 namespace Angecode\IproSoftware\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use ReflectionClass;
 
 abstract class TestCase extends BaseTestCase
 {
+
+    /**
+     * @param $object
+     * @param $property
+     * @param $value
+     * @throws \ReflectionException
+     */
+    public function setProtectedProperty($object, $property, $value)
+    {
+        $reflection = new ReflectionClass($object);
+        $reflection_property = $reflection->getProperty($property);
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($object, $value);
+    }
+
+
+    /**
+     * @param $object
+     * @param $propertyName
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public function getProtectedProperty($object, $propertyName)
+    {
+        $reflection = new ReflectionClass($object);
+        $property = $reflection->getProperty($propertyName);
+        $property->setAccessible(true);
+
+        return $property->getValue($object);
+    }
+
 }
