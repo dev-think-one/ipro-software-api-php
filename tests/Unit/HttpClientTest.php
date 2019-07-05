@@ -61,8 +61,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type' => 'some_type',
-                'expires_in' => 300,
+                'token_type'   => 'some_type',
+                'expires_in'   => 300,
             ]));
 
         $client->shouldReceive('post')
@@ -79,7 +79,6 @@ class HttpClientTest extends TestCase
 
     public function testRequest()
     {
-
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
         $client = Mockery::mock(Client::class);
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
@@ -87,11 +86,10 @@ class HttpClientTest extends TestCase
 
         $httpClient->setHttp($client);
 
-
         $response = new Response(200);
 
         $options = ['headers' => [
-            'Authorization' => $accessToken->getAuthorizationHeader()
+            'Authorization' => $accessToken->getAuthorizationHeader(),
         ]];
 
         $client->shouldReceive('request')
@@ -104,7 +102,8 @@ class HttpClientTest extends TestCase
         $this->assertEquals($response, $clientResponse);
     }
 
-    public function testMagicCall() {
+    public function testMagicCall()
+    {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
         $client = Mockery::mock(Client::class);
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
@@ -114,7 +113,7 @@ class HttpClientTest extends TestCase
         $response = new Response(200);
 
         $options = ['headers' => [
-            'Authorization' => $accessToken->getAuthorizationHeader()
+            'Authorization' => $accessToken->getAuthorizationHeader(),
         ]];
 
         foreach (HttpClient::HTTP_METHODS as $METHOD) {

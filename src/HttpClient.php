@@ -136,12 +136,14 @@ class HttpClient implements Contracts\HttpClient
 
     /**
      * @param null $option
-     * @return mixed
+     *
      * @throws IproSoftwareApiException
+     *
+     * @return mixed
      */
     public function getConfig($option = null)
     {
-        if(!is_null($this->http)) {
+        if (!is_null($this->http)) {
             return $this->http->getConfig($option);
         }
 

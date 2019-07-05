@@ -46,8 +46,9 @@ class IproSoftwareClient
     /**
      * @param AccessTokenCacher $cacheManager
      *
-     * @return IproSoftwareClient
      * @throws IproSoftwareApiException
+     *
+     * @return IproSoftwareClient
      */
     public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
     {

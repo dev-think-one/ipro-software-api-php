@@ -12,7 +12,6 @@ use Mockery;
 
 class IproSoftwareClientTest extends TestCase
 {
-
     public function testNoCallWithEmptyConfiguration()
     {
         $client = new IproSoftwareClient();
@@ -49,7 +48,6 @@ class IproSoftwareClientTest extends TestCase
 
     public function testSetAccessTokenCacheManager()
     {
-
         $cacheManager = Mockery::mock(AccessTokenCacher::class);
         $httpClient = Mockery::mock(HttpClient::class);
 
@@ -74,16 +72,16 @@ class IproSoftwareClientTest extends TestCase
         $apiHost = uniqid();
         $timeout = 30.0;
         $client = new IproSoftwareClient([
-            'api_host' => $apiHost,
-            'client_id' => uniqid(),
+            'api_host'      => $apiHost,
+            'client_id'     => uniqid(),
             'client_secret' => uniqid(),
-            'client_conf' => [
-                'timeout' => $timeout,
+            'client_conf'   => [
+                'timeout'     => $timeout,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Accept' => 'application/json',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertNotNull($client->httpClient());
@@ -94,5 +92,4 @@ class IproSoftwareClientTest extends TestCase
 
         $this->assertEquals('30', $client->httpClient()->getConfig('timeout'));
     }
-
 }

@@ -7,11 +7,11 @@ use ReflectionClass;
 
 abstract class TestCase extends BaseTestCase
 {
-
     /**
      * @param $object
      * @param $property
      * @param $value
+     *
      * @throws \ReflectionException
      */
     public function setProtectedProperty($object, $property, $value)
@@ -22,12 +22,13 @@ abstract class TestCase extends BaseTestCase
         $reflection_property->setValue($object, $value);
     }
 
-
     /**
      * @param $object
      * @param $propertyName
-     * @return mixed
+     *
      * @throws \ReflectionException
+     *
+     * @return mixed
      */
     public function getProtectedProperty($object, $propertyName)
     {
@@ -37,5 +38,4 @@ abstract class TestCase extends BaseTestCase
 
         return $property->getValue($object);
     }
-
 }
