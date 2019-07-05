@@ -2,10 +2,10 @@
 
 namespace Angecode\IproSoftware\AccessToken;
 
-use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 use Carbon\Carbon;
 use Psr\Http\Message\ResponseInterface;
+use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 
 class AccessToken implements AccessTokenInterface
 {
@@ -44,9 +44,9 @@ class AccessToken implements AccessTokenInterface
     {
         return [
             'access_token' => $this->accessToken,
-            'token_type'   => $this->tokenType,
-            'expires_in'   => $this->expiresIn,
-            'expires_at'   => $this->expiresAt,
+            'token_type' => $this->tokenType,
+            'expires_in' => $this->expiresIn,
+            'expires_at' => $this->expiresAt,
         ];
     }
 
@@ -76,9 +76,9 @@ class AccessToken implements AccessTokenInterface
     {
         $responseBody = json_decode($response->getBody(), true);
 
-        if (!isset($responseBody['access_token'])
-            || !isset($responseBody['token_type'])
-            || !isset($responseBody['expires_in'])
+        if (! isset($responseBody['access_token'])
+            || ! isset($responseBody['token_type'])
+            || ! isset($responseBody['expires_in'])
             || $responseBody['expires_in'] < 60 * 5
         ) {
             throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token: Not Valid Response');
@@ -92,7 +92,7 @@ class AccessToken implements AccessTokenInterface
             json_encode($responseBody)
         );
 
-        if (!($accessToken instanceof self)) {
+        if (! ($accessToken instanceof self)) {
             throw new IproSoftwareApiAccessTokenException(
                 $response,
                 'Get Access Token: Error while initialising'
@@ -104,7 +104,7 @@ class AccessToken implements AccessTokenInterface
 
     public function hasAccessToken(): bool
     {
-        return (bool) $this->accessToken && !$this->isTokenExpired();
+        return (bool) $this->accessToken && ! $this->isTokenExpired();
     }
 
     public function isTokenExpired(): bool
@@ -115,6 +115,6 @@ class AccessToken implements AccessTokenInterface
 
     public function getAuthorizationHeader(): string
     {
-        return ucfirst($this->tokenType).' '.$this->accessToken;
+        return ucfirst($this->tokenType) . ' ' . $this->accessToken;
     }
 }

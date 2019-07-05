@@ -2,9 +2,9 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Angecode\IproSoftware\Contracts\HttpClient;
-use Angecode\IproSoftware\IproSoftwareClient;
 use Angecode\IproSoftware\Tests\TestCase;
+use Angecode\IproSoftware\IproSoftwareClient;
+use Angecode\IproSoftware\Contracts\HttpClient;
 
 class HasApiMethodsTest extends TestCase
 {

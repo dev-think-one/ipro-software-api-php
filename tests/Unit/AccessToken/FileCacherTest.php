@@ -2,13 +2,13 @@
 
 namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
 
-use Angecode\IproSoftware\AccessToken\FileCacher;
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use Angecode\IproSoftware\Tests\TestCase;
+use Angecode\IproSoftware\Contracts\AccessToken;
+use Angecode\IproSoftware\AccessToken\FileCacher;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 
 class FileCacherTest extends TestCase
 {
@@ -30,7 +30,7 @@ class FileCacherTest extends TestCase
 
         $this->root = vfsStream::setup('exampleDir');
 
-        $this->cacher = new FileCacher(vfsStream::url('exampleDir/'.$this->file));
+        $this->cacher = new FileCacher(vfsStream::url('exampleDir/' . $this->file));
 
         $this->accessToken = new \Angecode\IproSoftware\AccessToken\AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
     }

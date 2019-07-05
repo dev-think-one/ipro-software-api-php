@@ -2,11 +2,11 @@
 
 namespace Angecode\IproSoftware;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use Angecode\IproSoftware\Traits\HasApiMethods;
+use Angecode\IproSoftware\AccessToken\NoneCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 
 class IproSoftwareClient
 {
@@ -52,7 +52,7 @@ class IproSoftwareClient
      */
     public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
     {
-        if (!($this->httpClient instanceof Contracts\HttpClient)) {
+        if (! ($this->httpClient instanceof Contracts\HttpClient)) {
             throw new IproSoftwareApiException('A HttpClient must be set at the beginning.', 500);
         }
         $this->httpClient->setCacheManager($cacheManager);
