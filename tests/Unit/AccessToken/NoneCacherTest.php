@@ -2,10 +2,10 @@
 
 namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 use Angecode\IproSoftware\Tests\TestCase;
+use Angecode\IproSoftware\Contracts\AccessToken;
+use Angecode\IproSoftware\AccessToken\NoneCacher;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 
 class NoneCacherTest extends TestCase
 {

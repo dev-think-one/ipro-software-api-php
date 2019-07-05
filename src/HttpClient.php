@@ -2,17 +2,17 @@
 
 namespace Angecode\IproSoftware;
 
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use BadMethodCallException;
 use Carbon\Carbon;
+use BadMethodCallException;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use Angecode\IproSoftware\Contracts\AccessToken;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 
 /**
  * Class HttpClient.
@@ -86,7 +86,7 @@ class HttpClient implements Contracts\HttpClient
             ?? \Angecode\IproSoftware\AccessToken\AccessToken::class;
 
         $configs = $httpConfiguration['client_conf'] ?? [];
-        if (!isset($configs['base_uri'])) {
+        if (! isset($configs['base_uri'])) {
             $configs['base_uri'] = $this->clientCredentials->apiHost;
         }
         $this->http = new \GuzzleHttp\Client($configs);
@@ -107,7 +107,7 @@ class HttpClient implements Contracts\HttpClient
             return $this->request(strtoupper($method), $arguments[0], $arguments[1] ?? []);
         }
 
-        throw new BadMethodCallException('Method '.$method.' not found on '.get_class().'.', 500);
+        throw new BadMethodCallException('Method ' . $method . ' not found on ' . get_class() . '.', 500);
     }
 
     /**
@@ -143,7 +143,7 @@ class HttpClient implements Contracts\HttpClient
      */
     public function getConfig($option = null)
     {
-        if (!is_null($this->http)) {
+        if (! is_null($this->http)) {
             return $this->http->getConfig($option);
         }
 
@@ -162,15 +162,15 @@ class HttpClient implements Contracts\HttpClient
      */
     public function request($method, $path = '', array $options = []): ResponseInterface
     {
-        if (!$this->hasAccessToken()) {
+        if (! $this->hasAccessToken()) {
             $this->generateAccessToken();
         }
 
-        if (!isset($options['headers']['Authorization'])) {
+        if (! isset($options['headers']['Authorization'])) {
             $options['headers']['Authorization'] = $this->accessToken->getAuthorizationHeader();
         }
 
-        if (is_string($path) && !empty($path)) {
+        if (is_string($path) && ! empty($path)) {
             if ($path[0] == '/') {
                 $path = substr($path, 1);
             }
@@ -197,7 +197,7 @@ class HttpClient implements Contracts\HttpClient
         $this->accessToken = $this->cacheManager->get();
 
         // If empty access token or expired then make request for new token
-        if (!$this->hasAccessToken()) {
+        if (! $this->hasAccessToken()) {
             $this->receiveAccessToken();
         }
 

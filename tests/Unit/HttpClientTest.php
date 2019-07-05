@@ -2,20 +2,20 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Angecode\IproSoftware\AccessToken\AccessToken;
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\HttpClient;
-use Angecode\IproSoftware\Tests\TestCase;
-use BadMethodCallException;
+use Mockery;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use BadMethodCallException;
 use GuzzleHttp\Psr7\Response;
-use Mockery;
+use Angecode\IproSoftware\HttpClient;
 use Psr\Http\Message\ResponseInterface;
+use Angecode\IproSoftware\Tests\TestCase;
+use Angecode\IproSoftware\AccessToken\NoneCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
+use Angecode\IproSoftware\AccessToken\AccessToken;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 
 class HttpClientTest extends TestCase
 {
@@ -65,8 +65,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type'   => 'some_type',
-                'expires_in'   => 300,
+                'token_type' => 'some_type',
+                'expires_in' => 300,
             ]));
 
         $client->shouldReceive('post')

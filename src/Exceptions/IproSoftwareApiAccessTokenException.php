@@ -2,8 +2,8 @@
 
 namespace Angecode\IproSoftware\Exceptions;
 
-use Psr\Http\Message\ResponseInterface;
 use Throwable;
+use Psr\Http\Message\ResponseInterface;
 
 class IproSoftwareApiAccessTokenException extends IproSoftwareApiException
 {

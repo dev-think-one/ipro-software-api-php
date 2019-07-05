@@ -2,15 +2,15 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\HttpClient;
-use Angecode\IproSoftware\IproSoftwareClient;
-use Angecode\IproSoftware\Tests\TestCase;
-use GuzzleHttp\Psr7\Uri;
 use Mockery;
+use GuzzleHttp\Psr7\Uri;
+use Angecode\IproSoftware\HttpClient;
+use Angecode\IproSoftware\Tests\TestCase;
+use Angecode\IproSoftware\IproSoftwareClient;
+use Angecode\IproSoftware\AccessToken\NoneCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 
 class IproSoftwareClientTest extends TestCase
 {
@@ -87,14 +87,14 @@ class IproSoftwareClientTest extends TestCase
         $apiHost = uniqid();
         $timeout = 30.0;
         $client = new IproSoftwareClient([
-            'api_host'       => $apiHost,
-            'client_id'      => uniqid(),
-            'client_secret'  => uniqid(),
+            'api_host' => $apiHost,
+            'client_id' => uniqid(),
+            'client_secret' => uniqid(),
             'oauth_endpoint' => '/my-oauth',
-            'client_conf'    => [
-                'timeout'     => $timeout,
+            'client_conf' => [
+                'timeout' => $timeout,
                 'http_errors' => false,
-                'headers'     => [
+                'headers' => [
                     'Accept' => 'application/json',
                 ],
             ],
