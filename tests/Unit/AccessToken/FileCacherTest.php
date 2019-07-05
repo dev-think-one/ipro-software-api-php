@@ -55,7 +55,6 @@ class FileCacherTest extends TestCase
 
         $result = $this->cacher->get();
 
-       $this->assertEqualsCanonicalizing($this->accessToken, $result);
+        $this->assertEqualsCanonicalizing($this->accessToken, $result);
     }
-
 }

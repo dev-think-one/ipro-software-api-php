@@ -34,5 +34,4 @@ class NoneCacherTest extends TestCase
         $this->assertTrue($result);
         $this->assertNull($this->cacher->get());
     }
-
 }

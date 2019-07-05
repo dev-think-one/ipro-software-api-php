@@ -3,14 +3,12 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-
 use Angecode\IproSoftware\Contracts\HttpClient;
 use Angecode\IproSoftware\IproSoftwareClient;
 use Angecode\IproSoftware\Tests\TestCase;
 
 class HasApiMethodsTest extends TestCase
 {
-
     public function testGetMethodDataReturnNullThenBadMethodException()
     {
         $client = new IproSoftwareClient();
@@ -53,7 +51,5 @@ class HasApiMethodsTest extends TestCase
         $return = $client->{$methodName}();
 
         $this->assertEquals('RETURN', $return);
-
     }
-
 }
