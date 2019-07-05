@@ -38,4 +38,11 @@ abstract class TestCase extends BaseTestCase
 
         return $property->getValue($object);
     }
+
+    protected function arrayKeyFirst(array $array) {
+        // Support only for php >= 7.3
+        //$someMethod = array_key_first($predefinedMethods);
+        reset($array);
+        return key($array);
+    }
 }

@@ -12,6 +12,7 @@ use Mockery;
 
 class IproSoftwareClientTest extends TestCase
 {
+
     public function testNoCallWithEmptyConfiguration()
     {
         $client = new IproSoftwareClient();
@@ -27,7 +28,7 @@ class IproSoftwareClientTest extends TestCase
         $this->assertIsArray($predefinedMethods);
         $this->assertNotEmpty($predefinedMethods);
 
-        $someMethod = array_key_first($predefinedMethods);
+        $someMethod = $this->arrayKeyFirst($predefinedMethods);
 
         $this->expectException(IproSoftwareApiException::class);
         $this->expectExceptionCode(500);
