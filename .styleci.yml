@@ -1,3 +1,9 @@
-preset: recommended
+preset: laravel
+
+enabled:
+  - concat_with_spaces
+  - short_array_syntax
+  - unalign_double_arrow
+
 disabled:
   - unused_use
