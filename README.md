@@ -30,6 +30,8 @@ You can install the package via composer:
     $responseBody = json_decode($response->getBody());
 ```
 
+**Note**: All predefined api requests name you can find [here](https://github.com/yaroslawww/ipro-software-api-php/blob/master/src/Traits/HasApiMethods.php)
+
 ## Configure the client
 
 The Trello client needs a few configuration settings to operate successfully.
@@ -101,6 +103,8 @@ If you try to query with the wrong configuration, you will get an exception `Ang
 
 ``` bash
     ./vendor/bin/phpunit
+    # or
+    composer test
 ```
 
 ## Security
