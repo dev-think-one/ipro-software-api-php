@@ -12,7 +12,6 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class FileCacherTest extends TestCase
 {
-
     /** @var AccessTokenCacher */
     protected $cacher;
 
@@ -31,12 +30,10 @@ class FileCacherTest extends TestCase
 
         $this->root = vfsStream::setup('exampleDir');
 
-        $this->cacher = new FileCacher(vfsStream::url('exampleDir/' . $this->file));
-
+        $this->cacher = new FileCacher(vfsStream::url('exampleDir/'.$this->file));
 
         $this->accessToken = new \Angecode\IproSoftware\AccessToken\AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
     }
-
 
     public function testPut()
     {

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Angecode\IproSoftware\Tests\Unit;
 
 use Angecode\IproSoftware\Contracts\HttpClient;
@@ -18,7 +17,6 @@ class HasApiMethodsTest extends TestCase
         $client->notExxxist();
     }
 
-
     public function testMergeMethodsAndRemoveMethod()
     {
         $client = new IproSoftwareClient();
@@ -30,11 +28,10 @@ class HasApiMethodsTest extends TestCase
         $this->assertFalse(in_array('newMethod', array_keys($client->getMethodsList())));
     }
 
-
     public function testCallPredefinedRequest()
     {
         $client = new IproSoftwareClient([
-            'requests_path_prefix' => '/api/v1'
+            'requests_path_prefix' => '/api/v1',
         ]);
 
         $http = \Mockery::mock(HttpClient::class);

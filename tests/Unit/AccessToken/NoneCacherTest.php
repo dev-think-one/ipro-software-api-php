@@ -9,7 +9,6 @@ use Angecode\IproSoftware\Tests\TestCase;
 
 class NoneCacherTest extends TestCase
 {
-
     /** @var AccessTokenCacher */
     protected $cacher;
 
@@ -19,7 +18,6 @@ class NoneCacherTest extends TestCase
 
         $this->cacher = new NoneCacher();
     }
-
 
     public function testPut()
     {
