@@ -110,11 +110,11 @@ trait HasApiMethods
      * Attempts to handle api method call.
      *
      * @param string $method
-     * @param array  $parameters
-     *
-     * @throws BadMethodCallException
+     * @param array $parameters
      *
      * @return object
+     * @throws IproSoftwareApiException
+     * @throws BadMethodCallException
      */
     public function __call($method, $parameters)
     {
