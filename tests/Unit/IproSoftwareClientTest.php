@@ -12,7 +12,6 @@ use Mockery;
 
 class IproSoftwareClientTest extends TestCase
 {
-
     public function testNoCallWithEmptyConfiguration()
     {
         $client = new IproSoftwareClient();
