@@ -6,3 +6,4 @@ enabled:
 
 disabled:
   - unused_use
+  - concat_without_spaces
