@@ -67,12 +67,13 @@ class AccessToken implements AccessTokenInterface
 
     /**
      * @param ResponseInterface $response
-     * @return AccessTokenInterface|null
+     *
      * @throws IproSoftwareApiAccessTokenException
+     *
+     * @return AccessTokenInterface|null
      */
     public static function makeFromApiResponse(ResponseInterface $response): ?AccessTokenInterface
     {
-
         $responseBody = json_decode($response->getBody(), true);
 
         if (!isset($responseBody['access_token'])
@@ -91,7 +92,7 @@ class AccessToken implements AccessTokenInterface
             json_encode($responseBody)
         );
 
-        if (!($accessToken instanceof AccessToken)) {
+        if (!($accessToken instanceof self)) {
             throw new IproSoftwareApiAccessTokenException(
                 $response,
                 'Get Access Token: Error while initialising'
