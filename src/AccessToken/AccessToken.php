@@ -44,9 +44,9 @@ class AccessToken implements AccessTokenInterface
     {
         return [
             'access_token' => $this->accessToken,
-            'token_type'   => $this->tokenType,
-            'expires_in'   => $this->expiresIn,
-            'expires_at'   => $this->expiresAt,
+            'token_type' => $this->tokenType,
+            'expires_in' => $this->expiresIn,
+            'expires_at' => $this->expiresAt,
         ];
     }
 
@@ -54,7 +54,7 @@ class AccessToken implements AccessTokenInterface
     {
         $data = json_decode($json, true);
         if (is_array($data)) {
-            return new self(
+            $accessToken = new self(
                 $data['access_token'] ?? null,
                 $data['token_type'] ?? null,
                 $data['expires_in'] ?? null,
@@ -62,15 +62,15 @@ class AccessToken implements AccessTokenInterface
             );
         }
 
-        return null;
+        return (isset($accessToken) && $accessToken->hasAccessToken()) ? $accessToken : null;
     }
 
     /**
      * @param ResponseInterface $response
      *
+     * @return AccessTokenInterface|null
      * @throws IproSoftwareApiAccessTokenException
      *
-     * @return AccessTokenInterface|null
      */
     public static function makeFromApiResponse(ResponseInterface $response): ?AccessTokenInterface
     {
@@ -104,7 +104,7 @@ class AccessToken implements AccessTokenInterface
 
     public function hasAccessToken(): bool
     {
-        return (bool) $this->accessToken && !$this->isTokenExpired();
+        return (bool)$this->accessToken && !$this->isTokenExpired();
     }
 
     public function isTokenExpired(): bool
@@ -115,6 +115,6 @@ class AccessToken implements AccessTokenInterface
 
     public function getAuthorizationHeader(): string
     {
-        return ucfirst($this->tokenType).' '.$this->accessToken;
+        return ucfirst($this->tokenType) . ' ' . $this->accessToken;
     }
 }

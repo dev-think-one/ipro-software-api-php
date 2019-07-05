@@ -185,7 +185,7 @@ trait HasApiMethods
      */
     public function mergeMethods(array $methods): self
     {
-        array_merge($this->methods, $methods);
+        $this->methods = array_merge($this->methods, $methods);
 
         return $this;
     }

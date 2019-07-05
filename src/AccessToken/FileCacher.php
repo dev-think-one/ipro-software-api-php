@@ -25,36 +25,6 @@ class FileCacher implements AccessTokenCacher
     /**
      * Store an item in the cache.
      *
-     * @param string $key
-     * @param mixed  $value
-     * @param int    $ttl   - time in seconds
-     *
-     * @return bool
-     * @static
-     */
-    public function puast(string $key, $value, int $ttl = 0)
-    {
-    }
-
-    /**
-     * Retrieve an item from the cache by key.
-     *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
-     * @static
-     */
-    public function gaset(string $key, $default = null)
-    {
-        $data = file_get_contents($this->filePath);
-
-        return ($data === false) ? $default : $data;
-    }
-
-    /**
-     * Store an item in the cache.
-     *
      * @param mixed $accessToken
      * @param int   $ttl         - time in seconds
      *
