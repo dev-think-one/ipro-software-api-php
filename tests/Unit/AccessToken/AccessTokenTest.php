@@ -47,9 +47,9 @@ class AccessTokenTest extends TestCase
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString(),
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ]));
 
         $this->assertTrue($accessToken->hasAccessToken());
@@ -70,8 +70,8 @@ class AccessTokenTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type' => 'some_type',
-                'expires_in' => 500,
+                'token_type'   => 'some_type',
+                'expires_in'   => 500,
             ]));
 
         $accessToken = AccessToken::makeFromApiResponse($response);
@@ -85,9 +85,9 @@ class AccessTokenTest extends TestCase
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString(),
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ];
 
         $encodedData = json_encode($data);
@@ -105,14 +105,14 @@ class AccessTokenTest extends TestCase
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type' => 'some_type',
-            'expires_in' => '100',
-            'expires_at' => Carbon::now()->addMinute()->toString(),
+            'token_type'   => 'some_type',
+            'expires_in'   => '100',
+            'expires_at'   => Carbon::now()->addMinute()->toString(),
         ];
 
         $accessToken = AccessToken::makeFromJson(json_encode($data));
 
-        $this->assertEquals('Some_type ' . $data['access_token'], $accessToken->getAuthorizationHeader());
+        $this->assertEquals('Some_type '.$data['access_token'], $accessToken->getAuthorizationHeader());
     }
 
     public function testMakeFromApiResponseThrowExceptionIfNotValidResponse()
@@ -134,8 +134,8 @@ class AccessTokenTest extends TestCase
 
         $data = [
             'access_token' => '',
-            'token_type' => 'some_type',
-            'expires_in' => '300',
+            'token_type'   => 'some_type',
+            'expires_in'   => '300',
         ];
 
         $response->shouldReceive('getBody')
@@ -153,8 +153,8 @@ class AccessTokenTest extends TestCase
 
         $data = [
             'access_token' => '',
-            'token_type' => 'some_type',
-            'expires_in' => '300',
+            'token_type'   => 'some_type',
+            'expires_in'   => '300',
         ];
 
         $response->shouldReceive('getBody')
