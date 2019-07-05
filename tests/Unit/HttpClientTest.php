@@ -65,8 +65,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type' => 'some_type',
-                'expires_in' => 300,
+                'token_type'   => 'some_type',
+                'expires_in'   => 300,
             ]));
 
         $client->shouldReceive('post')
@@ -89,7 +89,6 @@ class HttpClientTest extends TestCase
         $response->shouldReceive('getStatusCode')
             ->andReturn(500);
 
-
         $client->shouldReceive('post')
             ->once()
             ->andReturn($response);
@@ -101,7 +100,6 @@ class HttpClientTest extends TestCase
 
         $httpClient->generateAccessToken();
     }
-
 
     public function testRequest()
     {

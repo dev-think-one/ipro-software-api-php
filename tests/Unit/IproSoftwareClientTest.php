@@ -72,7 +72,7 @@ class IproSoftwareClientTest extends TestCase
     public function testSetAccessTokenCacheManagerReturnSelf()
     {
         $client = new IproSoftwareClient([
-            'requests_path_prefix' => '/api/v1'
+            'requests_path_prefix' => '/api/v1',
         ]);
 
         $httpClient = new HttpClient(new ClientCredentials(uniqid(), uniqid(), uniqid()), new NoneCacher());
@@ -87,11 +87,11 @@ class IproSoftwareClientTest extends TestCase
         $apiHost = uniqid();
         $timeout = 30.0;
         $client = new IproSoftwareClient([
-            'api_host'      => $apiHost,
-            'client_id'     => uniqid(),
-            'client_secret' => uniqid(),
+            'api_host'       => $apiHost,
+            'client_id'      => uniqid(),
+            'client_secret'  => uniqid(),
             'oauth_endpoint' => '/my-oauth',
-            'client_conf'   => [
+            'client_conf'    => [
                 'timeout'     => $timeout,
                 'http_errors' => false,
                 'headers'     => [
