@@ -70,7 +70,8 @@ class IproSoftwareClient
         $clientCredentials = new ClientCredentials(
             $configurations['api_host'] ?? '',
             $configurations['client_id'] ?? '',
-            $configurations['client_secret'] ?? '');
+            $configurations['client_secret'] ?? ''
+        );
 
         if (isset($configurations['oauth_endpoint'])) {
             $clientCredentials->tokenEndpoint = $configurations['oauth_endpoint'];

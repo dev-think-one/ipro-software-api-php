@@ -2,7 +2,9 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
+use Angecode\IproSoftware\AccessToken\NoneCacher;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use Angecode\IproSoftware\HttpClient;
 use Angecode\IproSoftware\IproSoftwareClient;
@@ -67,6 +69,19 @@ class IproSoftwareClientTest extends TestCase
         $client->setAccessTokenCacheManager($cacheManager);
     }
 
+    public function testSetAccessTokenCacheManagerReturnSelf()
+    {
+        $client = new IproSoftwareClient([
+            'requests_path_prefix' => '/api/v1'
+        ]);
+
+        $httpClient = new HttpClient(new ClientCredentials(uniqid(), uniqid(), uniqid()), new NoneCacher());
+
+        $client->setHttpClient($httpClient);
+
+        $this->assertEquals($client, $client->setAccessTokenCacheManager(new NoneCacher()));
+    }
+
     public function testCreationDefaultHttpClient()
     {
         $apiHost = uniqid();
@@ -75,6 +90,7 @@ class IproSoftwareClientTest extends TestCase
             'api_host'      => $apiHost,
             'client_id'     => uniqid(),
             'client_secret' => uniqid(),
+            'oauth_endpoint' => '/my-oauth',
             'client_conf'   => [
                 'timeout'     => $timeout,
                 'http_errors' => false,
