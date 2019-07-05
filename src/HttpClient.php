@@ -198,48 +198,36 @@ class HttpClient implements Contracts\HttpClient
 
         // If empty access token or expired then make request for new token
         if (!$this->hasAccessToken()) {
-            $response = $this->http->post($this->clientCredentials->tokenEndpoint, [
-                'auth' => [
-                    $this->clientCredentials->clientId,
-                    $this->clientCredentials->clientSecret,
-                ],
-                'form_params' => [
-                    'grant_type' => 'client_credentials',
-                ],
-            ]);
-
-            if ($response->getStatusCode() != 200) {
-                throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token Error');
-            }
-
-            $responseBody = json_decode($response->getBody(), true);
-
-            if (!isset($responseBody['access_token'])
-                || !isset($responseBody['token_type'])
-                || !isset($responseBody['expires_in'])
-                || $responseBody['expires_in'] < 60 * 5
-            ) {
-                throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token: Not Valid Response');
-            }
-
-            $expiresAt = Carbon::now()->addSeconds($responseBody['expires_in']);
-            $responseBody['expires_at'] = $expiresAt->toString();
-
-            $this->accessToken = call_user_func(
-                [$this->accessTokenClass, 'makeFromJson'],
-                json_encode($responseBody)
-            );
-
-            if (!($this->accessToken instanceof AccessToken)) {
-                throw new IproSoftwareApiAccessTokenException(
-                    $response,
-                    'Get Access Token: Error while initialising'
-                );
-            }
-
-            $this->cacheManager->put($this->accessToken);
+            $this->receiveAccessToken();
         }
 
         return $this->accessToken;
+    }
+
+    /**
+     * @throws IproSoftwareApiAccessTokenException
+     */
+    protected function receiveAccessToken()
+    {
+        $response = $this->http->post($this->clientCredentials->tokenEndpoint, [
+            'auth' => [
+                $this->clientCredentials->clientId,
+                $this->clientCredentials->clientSecret,
+            ],
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+            ],
+        ]);
+
+        if ($response->getStatusCode() != 200) {
+            throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token Error');
+        }
+
+        $this->accessToken = call_user_func(
+            [$this->accessTokenClass, 'makeFromApiResponse'],
+            $response
+        );
+
+        $this->cacheManager->put($this->accessToken);
     }
 }

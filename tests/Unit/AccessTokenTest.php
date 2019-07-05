@@ -5,6 +5,8 @@ namespace Angecode\IproSoftware\Tests\Unit;
 use Angecode\IproSoftware\AccessToken\AccessToken;
 use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
+use Mockery;
+use Psr\Http\Message\ResponseInterface;
 
 class AccessTokenTest extends TestCase
 {
@@ -40,19 +42,19 @@ class AccessTokenTest extends TestCase
         $this->assertFalse($accessToken->isTokenExpired());
     }
 
-    public function testIfAccessTokenMakeFromJson()
+    public function testAccessTokenMakeFromJson()
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
             'access_token' => uniqid(),
-            'token_type'   => 'some_type',
-            'expires_in'   => '100',
-            'expires_at'   => Carbon::now()->addMinute()->toString(),
+            'token_type' => 'some_type',
+            'expires_in' => '100',
+            'expires_at' => Carbon::now()->addMinute()->toString(),
         ]));
 
         $this->assertTrue($accessToken->hasAccessToken());
     }
 
-    public function testIfAccessTokenMakeFromJsonError()
+    public function testAccessTokenMakeFromJsonError()
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
             'token_type' => 'some_type',
@@ -63,13 +65,33 @@ class AccessTokenTest extends TestCase
         $this->assertFalse($accessToken->hasAccessToken());
     }
 
+
+    public function testAccessTokenMakeFromApiResponse()
+    {
+        $response = Mockery::mock(ResponseInterface::class);
+
+        $response->shouldReceive('getBody')
+            ->once()
+            ->andReturn(json_encode([
+                'access_token' => uniqid(),
+                'token_type' => 'some_type',
+                'expires_in' => 500,
+            ]));
+
+        $accessToken = AccessToken::makeFromApiResponse($response);
+
+        $this->assertInstanceOf(\Angecode\IproSoftware\Contracts\AccessToken::class, $accessToken);
+        $this->assertFalse($accessToken->isTokenExpired());
+        $this->assertTrue($accessToken->hasAccessToken());
+    }
+
     public function testIfAccessTokenJsonSerialize()
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type'   => 'some_type',
-            'expires_in'   => '100',
-            'expires_at'   => Carbon::now()->addMinute()->toString(),
+            'token_type' => 'some_type',
+            'expires_in' => '100',
+            'expires_at' => Carbon::now()->addMinute()->toString(),
         ];
 
         $encodedData = json_encode($data);
@@ -87,13 +109,13 @@ class AccessTokenTest extends TestCase
     {
         $data = [
             'access_token' => uniqid(),
-            'token_type'   => 'some_type',
-            'expires_in'   => '100',
-            'expires_at'   => Carbon::now()->addMinute()->toString(),
+            'token_type' => 'some_type',
+            'expires_in' => '100',
+            'expires_at' => Carbon::now()->addMinute()->toString(),
         ];
 
         $accessToken = AccessToken::makeFromJson(json_encode($data));
 
-        $this->assertEquals('Some_type '.$data['access_token'], $accessToken->getAuthorizationHeader());
+        $this->assertEquals('Some_type ' . $data['access_token'], $accessToken->getAuthorizationHeader());
     }
 }

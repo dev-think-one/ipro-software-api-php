@@ -3,7 +3,9 @@
 namespace Angecode\IproSoftware\AccessToken;
 
 use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 use Carbon\Carbon;
+use Psr\Http\Message\ResponseInterface;
 
 class AccessToken implements AccessTokenInterface
 {
@@ -61,6 +63,42 @@ class AccessToken implements AccessTokenInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @return AccessTokenInterface|null
+     * @throws IproSoftwareApiAccessTokenException
+     */
+    public static function makeFromApiResponse(ResponseInterface $response): ?AccessTokenInterface
+    {
+
+        $responseBody = json_decode($response->getBody(), true);
+
+        if (!isset($responseBody['access_token'])
+            || !isset($responseBody['token_type'])
+            || !isset($responseBody['expires_in'])
+            || $responseBody['expires_in'] < 60 * 5
+        ) {
+            throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token: Not Valid Response');
+        }
+
+        $expiresAt = Carbon::now()->addSeconds($responseBody['expires_in']);
+        $responseBody['expires_at'] = $expiresAt->toString();
+
+        $accessToken = call_user_func(
+            [self::class, 'makeFromJson'],
+            json_encode($responseBody)
+        );
+
+        if (!($accessToken instanceof AccessToken)) {
+            throw new IproSoftwareApiAccessTokenException(
+                $response,
+                'Get Access Token: Error while initialising'
+            );
+        }
+
+        return $accessToken;
     }
 
     public function hasAccessToken(): bool
