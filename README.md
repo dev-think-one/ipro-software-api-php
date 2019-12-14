@@ -99,6 +99,9 @@ If you try to query with the wrong configuration, you will get an exception `Ang
     }
 ```
 
+### Api documentation
+IproSoftware has only on documentation [there](https://github.com/iprosoftware/api-csharp-client/wiki)
+
 ## Testing
 
 ``` bash

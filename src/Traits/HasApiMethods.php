@@ -2,6 +2,7 @@
 
 namespace Angecode\IproSoftware\Traits;
 
+use Angecode\IproSoftware\Exceptions\IproServerException;
 use BadMethodCallException;
 use Angecode\IproSoftware\HttpClient;
 use Psr\Http\Message\ResponseInterface;
@@ -130,7 +131,13 @@ trait HasApiMethods
             $path = call_user_func_array('sprintf', $replacementParams);
             array_unshift($parameters, $path);
 
-            return call_user_func_array([$this->httpClient(), $signature[0]], $parameters);
+            try {
+                $response = call_user_func_array([$this->httpClient(), $signature[0]], $parameters);
+            } catch (\GuzzleHttp\Exception\ServerException $e) {
+                throw new IproServerException($e->getMessage(), $e->getCode(), $e);
+            }
+
+            return $response;
         }
 
         throw new BadMethodCallException('Method ' . $method . ' not found on ' . get_class() . '.', 500);

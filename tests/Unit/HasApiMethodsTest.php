@@ -2,9 +2,13 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
+use Angecode\IproSoftware\Exceptions\IproServerException;
 use Angecode\IproSoftware\Tests\TestCase;
 use Angecode\IproSoftware\IproSoftwareClient;
 use Angecode\IproSoftware\Contracts\HttpClient;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 class HasApiMethodsTest extends TestCase
 {
@@ -48,5 +52,29 @@ class HasApiMethodsTest extends TestCase
         $return = $client->{$methodName}();
 
         $this->assertEquals('RETURN', $return);
+    }
+
+    public function testCallPredefinedRequestThrowException()
+    {
+        $client = new IproSoftwareClient([
+            'requests_path_prefix' => '/api/v1',
+        ]);
+
+        $http = \Mockery::mock(HttpClient::class);
+
+        $client->setHttpClient($http);
+
+        $methodName = $this->arrayKeyFirst($client->getMethodsList());
+        $signature = $client->getMethodsList()[$methodName];
+
+        $exception = new ServerException('TEST', new Request('get', '/'), new Response());
+
+        $http->shouldReceive($signature[0])
+            ->once()
+            ->andThrows($exception);
+
+        $this->expectException(IproServerException::class);
+
+        $client->{$methodName}();
     }
 }
