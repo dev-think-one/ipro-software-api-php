@@ -12,7 +12,7 @@ class IproServerException extends \Exception
             $message = $previous->getMessage();
         }
         if (! $code) {
-            $message = $previous->getCode();
+            $code = $previous->getCode();
         }
         parent::__construct($message, $code, $previous);
     }
