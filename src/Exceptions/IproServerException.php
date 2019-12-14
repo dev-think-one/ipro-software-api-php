@@ -3,13 +3,19 @@
 namespace Angecode\IproSoftware\Exceptions;
 
 
-use Throwable;
+use GuzzleHttp\Exception\ServerException;
 
 class IproServerException extends \Exception
 {
 
-    public function __construct($message = '', $code = 0, Throwable $previous = null)
+    public function __construct(ServerException $previous, $message = '', $code = 0)
     {
+        if(!$message) {
+            $message = $previous->getMessage();
+        }
+        if(!$code) {
+            $message = $previous->getCode();
+        }
         parent::__construct($message, $code, $previous);
     }
 

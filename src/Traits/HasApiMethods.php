@@ -134,7 +134,7 @@ trait HasApiMethods
             try {
                 $response = call_user_func_array([$this->httpClient(), $signature[0]], $parameters);
             } catch (\GuzzleHttp\Exception\ServerException $e) {
-                throw new IproServerException($e->getMessage(), $e->getCode(), $e);
+                throw new IproServerException($e);
             }
 
             return $response;
