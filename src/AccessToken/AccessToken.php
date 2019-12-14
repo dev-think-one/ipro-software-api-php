@@ -2,10 +2,10 @@
 
 namespace Angecode\IproSoftware\AccessToken;
 
-use Carbon\Carbon;
-use Psr\Http\Message\ResponseInterface;
 use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
+use Carbon\Carbon;
+use Psr\Http\Message\ResponseInterface;
 
 class AccessToken implements AccessTokenInterface
 {

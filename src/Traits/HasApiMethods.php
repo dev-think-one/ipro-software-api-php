@@ -3,10 +3,10 @@
 namespace Angecode\IproSoftware\Traits;
 
 use Angecode\IproSoftware\Exceptions\IproServerException;
-use BadMethodCallException;
-use Angecode\IproSoftware\HttpClient;
-use Psr\Http\Message\ResponseInterface;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\HttpClient;
+use BadMethodCallException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Trait HasApiMethods.

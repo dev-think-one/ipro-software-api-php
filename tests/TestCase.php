@@ -2,8 +2,8 @@
 
 namespace Angecode\IproSoftware\Tests;
 
-use ReflectionClass;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use ReflectionClass;
 
 abstract class TestCase extends BaseTestCase
 {
