@@ -2,13 +2,13 @@
 
 namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
 
+use Angecode\IproSoftware\AccessToken\FileCacher;
+use Angecode\IproSoftware\Contracts\AccessToken;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
-use Angecode\IproSoftware\Tests\TestCase;
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\AccessToken\FileCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
 
 class FileCacherTest extends TestCase
 {

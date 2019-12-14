@@ -2,11 +2,11 @@
 
 namespace Angecode\IproSoftware;
 
-use Angecode\IproSoftware\Traits\HasApiMethods;
 use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\Traits\HasApiMethods;
 
 class IproSoftwareClient
 {

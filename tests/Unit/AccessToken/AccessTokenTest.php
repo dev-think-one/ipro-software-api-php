@@ -2,12 +2,12 @@
 
 namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
 
-use Mockery;
-use Carbon\Carbon;
-use Psr\Http\Message\ResponseInterface;
-use Angecode\IproSoftware\Tests\TestCase;
 use Angecode\IproSoftware\AccessToken\AccessToken;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
+use Angecode\IproSoftware\Tests\TestCase;
+use Carbon\Carbon;
+use Mockery;
+use Psr\Http\Message\ResponseInterface;
 
 class AccessTokenTest extends TestCase
 {

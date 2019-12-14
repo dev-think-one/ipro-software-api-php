@@ -2,15 +2,15 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Mockery;
-use GuzzleHttp\Psr7\Uri;
-use Angecode\IproSoftware\HttpClient;
-use Angecode\IproSoftware\Tests\TestCase;
-use Angecode\IproSoftware\IproSoftwareClient;
 use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\HttpClient;
+use Angecode\IproSoftware\IproSoftwareClient;
+use Angecode\IproSoftware\Tests\TestCase;
+use GuzzleHttp\Psr7\Uri;
+use Mockery;
 
 class IproSoftwareClientTest extends TestCase
 {

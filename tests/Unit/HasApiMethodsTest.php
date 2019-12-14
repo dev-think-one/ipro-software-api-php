@@ -2,10 +2,10 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Angecode\IproSoftware\Exceptions\IproServerException;
-use Angecode\IproSoftware\Tests\TestCase;
-use Angecode\IproSoftware\IproSoftwareClient;
 use Angecode\IproSoftware\Contracts\HttpClient;
+use Angecode\IproSoftware\Exceptions\IproServerException;
+use Angecode\IproSoftware\IproSoftwareClient;
+use Angecode\IproSoftware\Tests\TestCase;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;

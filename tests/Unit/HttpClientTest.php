@@ -2,20 +2,20 @@
 
 namespace Angecode\IproSoftware\Tests\Unit;
 
-use Mockery;
+use Angecode\IproSoftware\AccessToken\AccessToken;
+use Angecode\IproSoftware\AccessToken\NoneCacher;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use Angecode\IproSoftware\HttpClient;
+use Angecode\IproSoftware\Tests\TestCase;
+use BadMethodCallException;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use BadMethodCallException;
 use GuzzleHttp\Psr7\Response;
-use Angecode\IproSoftware\HttpClient;
+use Mockery;
 use Psr\Http\Message\ResponseInterface;
-use Angecode\IproSoftware\Tests\TestCase;
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\AccessToken\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 
 class HttpClientTest extends TestCase
 {

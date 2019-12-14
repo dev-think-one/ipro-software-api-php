@@ -2,17 +2,17 @@
 
 namespace Angecode\IproSoftware;
 
-use Carbon\Carbon;
-use BadMethodCallException;
-use GuzzleHttp\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Exception\GuzzleException;
 use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
+use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use Angecode\IproSoftware\DTOs\ClientCredentials;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
+use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
+use BadMethodCallException;
+use Carbon\Carbon;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class HttpClient.
