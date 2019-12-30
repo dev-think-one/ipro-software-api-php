@@ -36,6 +36,7 @@ use Psr\Http\Message\ResponseInterface;
  * @method ResponseInterface getPropertyAll($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-All
  * @method ResponseInterface getPropertyEnquiries($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Enquiries
  * @method ResponseInterface getPropertyWelcomepack($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Welcome-Pack
+ * @method ResponseInterface createOrUpdateProperty($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Push-Property
  * @method ResponseInterface createEnquiry($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Enquiry
  * @method ResponseInterface searchBookings($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Bookings
  * @method ResponseInterface calculateBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Calculate-Booking
@@ -87,6 +88,7 @@ trait HasApiMethods
         'getPropertyAll' => ['get', 'property/%s/all'],
         'getPropertyEnquiries' => ['get', 'property/%s/enquiries'],
         'getPropertyWelcomepack' => ['get', 'property/%s/welcomepack'],
+        'createOrUpdateProperty' => ['post', 'property'],
         /* Enquires */
         'createEnquiry' => ['post', 'enquiry'],
         /* Bookings */
