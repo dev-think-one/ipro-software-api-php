@@ -13,7 +13,7 @@ class AccessTokenTest extends TestCase
 {
     public function testIfAccessTokenValid()
     {
-        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
+        $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->addDay()->toString());
 
         $this->assertTrue($accessToken->hasAccessToken());
     }
@@ -27,14 +27,14 @@ class AccessTokenTest extends TestCase
 
     public function testIfAccessTokenInvalidIfExpired()
     {
-        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->subMinute()->toString());
+        $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->subMinute()->toString());
 
         $this->assertFalse($accessToken->hasAccessToken());
     }
 
     public function testIfAccessTokenExpired()
     {
-        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->subMinute()->toString());
+        $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->subMinute()->toString());
 
         $this->assertTrue($accessToken->isTokenExpired());
 
@@ -46,7 +46,7 @@ class AccessTokenTest extends TestCase
     public function testAccessTokenMakeFromJson()
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
-            'access_token' => uniqid(),
+            'access_token' => uniqid('', true),
             'token_type' => 'some_type',
             'expires_in' => '100',
             'expires_at' => Carbon::now()->addMinute()->toString(),
@@ -84,7 +84,7 @@ class AccessTokenTest extends TestCase
     public function testIfAccessTokenJsonSerialize()
     {
         $data = [
-            'access_token' => uniqid(),
+            'access_token' => uniqid('', true),
             'token_type' => 'some_type',
             'expires_in' => '100',
             'expires_at' => Carbon::now()->addMinute()->toString(),

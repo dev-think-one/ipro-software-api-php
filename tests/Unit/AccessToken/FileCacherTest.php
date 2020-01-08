@@ -24,7 +24,7 @@ class FileCacherTest extends TestCase
     /** @var AccessToken */
     protected $accessToken;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class FileCacherTest extends TestCase
 
         $this->cacher = new FileCacher(vfsStream::url('exampleDir/' . $this->file));
 
-        $this->accessToken = new \Angecode\IproSoftware\AccessToken\AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
+        $this->accessToken = new \Angecode\IproSoftware\AccessToken\AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->addDay()->toString());
     }
 
     public function testPut()

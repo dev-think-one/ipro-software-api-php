@@ -12,7 +12,7 @@ class NoneCacherTest extends TestCase
     /** @var AccessTokenCacher */
     protected $cacher;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

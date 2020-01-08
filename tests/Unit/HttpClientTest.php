@@ -21,7 +21,7 @@ class HttpClientTest extends TestCase
 {
     protected $clientCredentials;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -109,6 +109,11 @@ class HttpClientTest extends TestCase
         $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
 
         $httpClient->setHttp($client);
+
+        $httpClient->setResponseFilter(function(ResponseInterface $response, $options, $path, $method) {
+            $this->assertEquals($path, 'path/to/endpoint');
+            return $response;
+        });
 
         $response = new Response(200);
 
