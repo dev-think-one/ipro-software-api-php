@@ -126,11 +126,11 @@ class HttpClient implements Contracts\HttpClient
     }
 
     /**
-     * @param callable $responseFilter
+     * @param callable|null $responseFilter
      *
      * @return self
      */
-    public function setResponseFilter(callable $responseFilter): Contracts\HttpClient
+    public function setResponseFilter(?callable $responseFilter): Contracts\HttpClient
     {
         $this->responseFilter = $responseFilter;
 

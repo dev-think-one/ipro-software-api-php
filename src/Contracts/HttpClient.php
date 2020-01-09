@@ -10,11 +10,11 @@ interface HttpClient
     public function setCacheManager(AccessTokenCacher $cacheManager): self;
 
     /**
-     * @param callable $responseFilter
+     * @param callable|null $responseFilter
      * @example function(ResponseInterface $response, array $options, string $path, string $method){}
      * @return HttpClient
      */
-    public function setResponseFilter(callable $responseFilter): self;
+    public function setResponseFilter(?callable $responseFilter): self;
 
     public function setHttp(ClientInterface $http): self;
 
