@@ -41,6 +41,7 @@ use Psr\Http\Message\ResponseInterface;
  * @method ResponseInterface searchBookings($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Bookings
  * @method ResponseInterface calculateBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Calculate-Booking
  * @method ResponseInterface createBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Booking
+ * @method ResponseInterface updateBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Update-Booking
  * @method ResponseInterface getStatementsByOwner($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Statements
  * @method ResponseInterface getReviewsList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Reviews
  * @method ResponseInterface createReview($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Review
@@ -95,6 +96,7 @@ trait HasApiMethods
         'searchBookings' => ['get', 'bookings'],
         'calculateBooking' => ['post', 'booking/calc'],
         'createBooking' => ['post', 'booking'],
+        'updateBooking' => ['post', 'booking/update'],
         'getStatementsByOwner' => ['get', 'statements'],
         /* Reviews */
         'getReviewsList' => ['get', 'reviews'],
