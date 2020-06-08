@@ -100,7 +100,7 @@ If you try to query with the wrong configuration, you will get an exception `Ang
 ```
 
 ### Api documentation
-IproSoftware has only on documentation [there](https://github.com/iprosoftware/api-csharp-client/wiki)
+IproSoftware has documentation [there](https://github.com/iprosoftware/api-csharp-client/wiki)
 
 ## Testing
 
@@ -116,3 +116,7 @@ If you discover any security related issues, please email yaroslav.georgitsa@gma
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Credits
+
+- [![Think Studio](https://yaroslawww.github.io/images/sponsors/packages/logo-think-studio.png)](https://think.studio/)
