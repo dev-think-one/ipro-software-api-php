@@ -43,7 +43,7 @@ class HasApiMethodsTest extends TestCase
         $client->setHttpClient($http);
 
         $methodName = $this->arrayKeyFirst($client->getMethodsList());
-        $signature = $client->getMethodsList()[$methodName];
+        $signature  = $client->getMethodsList()[$methodName];
 
         $http->shouldReceive($signature[0])
             ->once()
@@ -65,7 +65,7 @@ class HasApiMethodsTest extends TestCase
         $client->setHttpClient($http);
 
         $methodName = $this->arrayKeyFirst($client->getMethodsList());
-        $signature = $client->getMethodsList()[$methodName];
+        $signature  = $client->getMethodsList()[$methodName];
 
         $exception = new ServerException('TEST', new Request('get', '/'), new Response());
 

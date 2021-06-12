@@ -62,54 +62,54 @@ trait HasApiMethods
      */
     protected $methods = [
         /* Settings */
-        'getSourcesList' => ['get', 'sources'],
+        'getSourcesList'      => ['get', 'sources'],
         'getBookingRulesList' => ['get', 'bookingrules'],
-        'getBookingTagsList' => ['get', 'bookingtags'],
-        'getLocationsList' => ['get', 'locations'],
-        'getAttributesList' => ['get', 'amenities'],
+        'getBookingTagsList'  => ['get', 'bookingtags'],
+        'getLocationsList'    => ['get', 'locations'],
+        'getAttributesList'   => ['get', 'amenities'],
         'getContactTypesList' => ['get', 'contacttypes'],
         /* Contacts */
-        'searchContacts' => ['get', 'contacts'],
-        'getContact' => ['get', 'contact/%s'],
-        'getExternalContact' => ['get', 'externalcontactID'],
+        'searchContacts'        => ['get', 'contacts'],
+        'getContact'            => ['get', 'contact/%s'],
+        'getExternalContact'    => ['get', 'externalcontactID'],
         'createOrUpdateContact' => ['post', 'contacts'],
         /* Properties */
-        'getPropertiesList' => ['get', 'properties'],
-        'searchProperties' => ['get', 'propertysearch'],
+        'getPropertiesList'                => ['get', 'properties'],
+        'searchProperties'                 => ['get', 'propertysearch'],
         'getPropertiesReferenceLookupList' => ['get', 'properties/reflookup'],
-        'getPropertyDetails' => ['get', 'property/%s'],
-        'getPropertyImages' => ['get', 'property/%s/images'],
-        'getPropertyExtras' => ['get', 'property/%s/extras'],
-        'getPropertyRates' => ['get', 'property/%s/rates'],
-        'getPropertyCustomRates' => ['get', 'property/%s/customrates'],
-        'getPropertyAvailability' => ['get', 'property/%s/availability'],
-        'getPropertyDayAvailability' => ['get', 'property/%s/dayavailability'],
-        'getPropertyRooms' => ['get', 'property/%s/rooms'],
-        'getPropertyDistances' => ['get', 'property/%s/distances'],
-        'getPropertyAll' => ['get', 'property/%s/all'],
-        'getPropertyEnquiries' => ['get', 'property/%s/enquiries'],
-        'getPropertyWelcomepack' => ['get', 'property/%s/welcomepack'],
-        'createOrUpdateProperty' => ['post', 'property'],
+        'getPropertyDetails'               => ['get', 'property/%s'],
+        'getPropertyImages'                => ['get', 'property/%s/images'],
+        'getPropertyExtras'                => ['get', 'property/%s/extras'],
+        'getPropertyRates'                 => ['get', 'property/%s/rates'],
+        'getPropertyCustomRates'           => ['get', 'property/%s/customrates'],
+        'getPropertyAvailability'          => ['get', 'property/%s/availability'],
+        'getPropertyDayAvailability'       => ['get', 'property/%s/dayavailability'],
+        'getPropertyRooms'                 => ['get', 'property/%s/rooms'],
+        'getPropertyDistances'             => ['get', 'property/%s/distances'],
+        'getPropertyAll'                   => ['get', 'property/%s/all'],
+        'getPropertyEnquiries'             => ['get', 'property/%s/enquiries'],
+        'getPropertyWelcomepack'           => ['get', 'property/%s/welcomepack'],
+        'createOrUpdateProperty'           => ['post', 'property'],
         /* Enquires */
         'createEnquiry' => ['post', 'enquiry'],
         /* Bookings */
-        'searchBookings' => ['get', 'bookings'],
-        'calculateBooking' => ['post', 'booking/calc'],
-        'createBooking' => ['post', 'booking'],
-        'updateBooking' => ['post', 'booking/update'],
+        'searchBookings'       => ['get', 'bookings'],
+        'calculateBooking'     => ['post', 'booking/calc'],
+        'createBooking'        => ['post', 'booking'],
+        'updateBooking'        => ['post', 'booking/update'],
         'getStatementsByOwner' => ['get', 'statements'],
         /* Reviews */
         'getReviewsList' => ['get', 'reviews'],
-        'createReview' => ['post', 'reviews'],
+        'createReview'   => ['post', 'reviews'],
         /* Payments */
         'createPayment' => ['post', 'payments'],
         /* Offers & Deals */
-        'getLateDealsList' => ['get', 'latedeals'],
+        'getLateDealsList'     => ['get', 'latedeals'],
         'getSpecialOffersList' => ['get', 'specialoffers'],
-        'getVouchers' => ['get', 'vouchers'],
+        'getVouchers'          => ['get', 'vouchers'],
     ];
 
-    abstract public function httpClient(): \Angecode\IproSoftware\Contracts\HttpClient;
+    abstract public function httpClient(): ?\Angecode\IproSoftware\Contracts\HttpClient;
 
     /**
      * Attempts to handle api method call.
@@ -129,7 +129,7 @@ trait HasApiMethods
             }
             $pathTemplate = $this->pathPrefix . $signature[1];
             preg_match_all('/\%/', $pathTemplate, $replacements);
-            $replacementCount = isset($replacements[0]) ? count($replacements[0]) : 0;
+            $replacementCount  = isset($replacements[0]) ? count($replacements[0]) : 0;
             $replacementParams = array_splice($parameters, 0, $replacementCount);
             array_unshift($replacementParams, $pathTemplate);
             $path = call_user_func_array('sprintf', $replacementParams);

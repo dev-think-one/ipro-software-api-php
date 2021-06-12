@@ -30,9 +30,9 @@ class ClientCredentials
         string $clientSecret,
         string $tokenEndpoint = '/oauth/2.0/token'
     ) {
-        $this->apiHost = $apiHost;
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
+        $this->apiHost       = $apiHost;
+        $this->clientId      = $clientId;
+        $this->clientSecret  = $clientSecret;
         $this->tokenEndpoint = $tokenEndpoint;
     }
 

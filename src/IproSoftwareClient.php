@@ -52,7 +52,7 @@ class IproSoftwareClient
      */
     public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
     {
-        if (! ($this->httpClient instanceof Contracts\HttpClient)) {
+        if (!($this->httpClient instanceof Contracts\HttpClient)) {
             throw new IproSoftwareApiException('A HttpClient must be set at the beginning.', 500);
         }
         $this->httpClient->setCacheManager($cacheManager);

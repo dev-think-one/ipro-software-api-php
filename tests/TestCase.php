@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function setProtectedProperty($object, $property, $value)
     {
-        $reflection = new ReflectionClass($object);
+        $reflection          = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
     public function getProtectedProperty($object, $propertyName)
     {
         $reflection = new ReflectionClass($object);
-        $property = $reflection->getProperty($propertyName);
+        $property   = $reflection->getProperty($propertyName);
         $property->setAccessible(true);
 
         return $property->getValue($object);

@@ -2,7 +2,6 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://travis-ci.org/yaroslawww/ipro-software-api-php.svg?branch=master)](https://travis-ci.org/yaroslawww/ipro-software-api-php) 
-[![StyleCI](https://github.styleci.io/repos/195302588/shield?branch=master&style=flat-square)](https://github.styleci.io/repos/195302588)
 [![Quality Score](https://img.shields.io/scrutinizer/g/yaroslawww/ipro-software-api-php.svg?b=master)](https://scrutinizer-ci.com/g/yaroslawww/ipro-software-api-php/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/yaroslawww/ipro-software-api-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/ipro-software-api-php/?branch=master)
 [![PHP Version](https://img.shields.io/travis/php-v/yaroslawww/ipro-software-api-php.svg?style=flat-square)](https://packagist.org/packages/yaroslawww/ipro-software-api-php)

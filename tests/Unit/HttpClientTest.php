@@ -55,7 +55,7 @@ class HttpClientTest extends TestCase
     public function testIfAccessTokenNotInCacheThenNeedApiCall()
     {
         $response = Mockery::mock(ResponseInterface::class);
-        $client = Mockery::mock(Client::class);
+        $client   = Mockery::mock(Client::class);
 
         $response->shouldReceive('getStatusCode')
             ->once()
@@ -65,8 +65,8 @@ class HttpClientTest extends TestCase
             ->once()
             ->andReturn(json_encode([
                 'access_token' => uniqid(),
-                'token_type' => 'some_type',
-                'expires_in' => 300,
+                'token_type'   => 'some_type',
+                'expires_in'   => 300,
             ]));
 
         $client->shouldReceive('post')
@@ -84,7 +84,7 @@ class HttpClientTest extends TestCase
     public function testIfAccessTokenRequestReturnNot200StatusCodeThenException()
     {
         $response = Mockery::mock(ResponseInterface::class);
-        $client = Mockery::mock(Client::class);
+        $client   = Mockery::mock(Client::class);
 
         $response->shouldReceive('getStatusCode')
             ->andReturn(500);
@@ -104,14 +104,15 @@ class HttpClientTest extends TestCase
     public function testRequest()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
-        $client = Mockery::mock(Client::class);
-        $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
+        $client      = Mockery::mock(Client::class);
+        $httpClient  = new HttpClient($this->clientCredentials, new NoneCacher());
         $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
 
         $httpClient->setHttp($client);
 
-        $httpClient->setResponseFilter(function(ResponseInterface $response, $options, $path, $method) {
+        $httpClient->setResponseFilter(function (ResponseInterface $response, $options, $path, $method) {
             $this->assertEquals($path, 'path/to/endpoint');
+
             return $response;
         });
 
@@ -133,10 +134,10 @@ class HttpClientTest extends TestCase
 
     public function testRequestIfExpiredAccessToken()
     {
-        $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->subMinute()->toString());
+        $accessToken      = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->subMinute()->toString());
         $validAccessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
-        $client = Mockery::mock(Client::class);
-        $cacheManager = Mockery::mock(AccessTokenCacher::class);
+        $client           = Mockery::mock(Client::class);
+        $cacheManager     = Mockery::mock(AccessTokenCacher::class);
 
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
         $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
@@ -162,8 +163,8 @@ class HttpClientTest extends TestCase
     public function testMagicCall()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
-        $client = Mockery::mock(Client::class);
-        $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
+        $client      = Mockery::mock(Client::class);
+        $httpClient  = new HttpClient($this->clientCredentials, new NoneCacher());
         $this->setProtectedProperty($httpClient, 'accessToken', $accessToken);
 
         $httpClient->setHttp($client);

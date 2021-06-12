@@ -25,9 +25,9 @@ class AccessToken implements AccessTokenInterface
     public function __construct(string $accessToken = null, string $tokenType = null, string $expiresIn = null, string $expiresAt = null)
     {
         $this->accessToken = $accessToken;
-        $this->tokenType = $tokenType;
-        $this->expiresIn = $expiresIn;
-        $this->expiresAt = $expiresAt;
+        $this->tokenType   = $tokenType;
+        $this->expiresIn   = $expiresIn;
+        $this->expiresAt   = $expiresAt;
     }
 
     /**
@@ -44,9 +44,9 @@ class AccessToken implements AccessTokenInterface
     {
         return [
             'access_token' => $this->accessToken,
-            'token_type' => $this->tokenType,
-            'expires_in' => $this->expiresIn,
-            'expires_at' => $this->expiresAt,
+            'token_type'   => $this->tokenType,
+            'expires_in'   => $this->expiresIn,
+            'expires_at'   => $this->expiresAt,
         ];
     }
 
@@ -76,15 +76,15 @@ class AccessToken implements AccessTokenInterface
     {
         $responseBody = json_decode($response->getBody(), true);
 
-        if (! isset($responseBody['access_token'])
-            || ! isset($responseBody['token_type'])
-            || ! isset($responseBody['expires_in'])
+        if (!isset($responseBody['access_token'])
+            || !isset($responseBody['token_type'])
+            || !isset($responseBody['expires_in'])
             || $responseBody['expires_in'] < 60 * 5
         ) {
             throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token: Not Valid Response');
         }
 
-        $expiresAt = Carbon::now()->addSeconds($responseBody['expires_in']);
+        $expiresAt                  = Carbon::now()->addSeconds($responseBody['expires_in']);
         $responseBody['expires_at'] = $expiresAt->toString();
 
         $accessToken = call_user_func(
@@ -92,7 +92,7 @@ class AccessToken implements AccessTokenInterface
             json_encode($responseBody)
         );
 
-        if (! ($accessToken instanceof self)) {
+        if (!($accessToken instanceof self)) {
             throw new IproSoftwareApiAccessTokenException(
                 $response,
                 'Get Access Token: Error while initialising'
@@ -104,7 +104,7 @@ class AccessToken implements AccessTokenInterface
 
     public function hasAccessToken(): bool
     {
-        return (bool) $this->accessToken && ! $this->isTokenExpired();
+        return (bool) $this->accessToken && !$this->isTokenExpired();
     }
 
     public function isTokenExpired(): bool

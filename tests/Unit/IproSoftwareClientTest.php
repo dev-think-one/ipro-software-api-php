@@ -51,7 +51,7 @@ class IproSoftwareClientTest extends TestCase
     public function testSetAccessTokenCacheManager()
     {
         $cacheManager = Mockery::mock(AccessTokenCacher::class);
-        $httpClient = Mockery::mock(HttpClient::class);
+        $httpClient   = Mockery::mock(HttpClient::class);
 
         $client = new IproSoftwareClient();
 
@@ -86,15 +86,15 @@ class IproSoftwareClientTest extends TestCase
     {
         $apiHost = uniqid();
         $timeout = 30.0;
-        $client = new IproSoftwareClient([
-            'api_host' => $apiHost,
-            'client_id' => uniqid(),
-            'client_secret' => uniqid(),
+        $client  = new IproSoftwareClient([
+            'api_host'       => $apiHost,
+            'client_id'      => uniqid(),
+            'client_secret'  => uniqid(),
             'oauth_endpoint' => '/my-oauth',
-            'client_conf' => [
-                'timeout' => $timeout,
+            'client_conf'    => [
+                'timeout'     => $timeout,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Accept' => 'application/json',
                 ],
             ],
