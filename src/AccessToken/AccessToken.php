@@ -40,7 +40,7 @@ class AccessToken implements AccessTokenInterface
      *
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [
             'access_token' => $this->accessToken,
@@ -56,9 +56,9 @@ class AccessToken implements AccessTokenInterface
         if (is_array($data)) {
             $accessToken = new self(
                 $data['access_token'] ?? null,
-                $data['token_type'] ?? null,
-                $data['expires_in'] ?? null,
-                $data['expires_at'] ?? null
+                $data['token_type']   ?? null,
+                $data['expires_in']   ?? null,
+                $data['expires_at']   ?? null
             );
         }
 

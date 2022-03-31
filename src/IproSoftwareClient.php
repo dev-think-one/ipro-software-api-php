@@ -68,8 +68,8 @@ class IproSoftwareClient
     protected function tryCreateDefaultHttpClient(array $configurations = [])
     {
         $clientCredentials = new ClientCredentials(
-            $configurations['api_host'] ?? '',
-            $configurations['client_id'] ?? '',
+            $configurations['api_host']      ?? '',
+            $configurations['client_id']     ?? '',
             $configurations['client_secret'] ?? ''
         );
 
