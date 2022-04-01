@@ -17,6 +17,7 @@ build:
               format: php-clover
           - php-scrutinizer-run
 
-checks:
-  php:
-    fix_doc_comments: true
+tools:
+  php_code_sniffer: false
+  php_cs_fixer: false
+  external_code_coverage: true
