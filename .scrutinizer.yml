@@ -11,15 +11,6 @@ build:
             "xdebug.mode": coverage
       tests:
         override:
-          - php-scrutinizer-run
-    tests-with-coverage:
-      environment:
-        php:
-          version: 8.0
-          ini:
-            "xdebug.mode": coverage
-      tests:
-        override:
           - command: vendor/bin/phpunit --coverage-clover=coverage-file
             coverage:
               file: coverage-file
