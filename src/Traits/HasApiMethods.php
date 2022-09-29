@@ -76,6 +76,7 @@ trait HasApiMethods
         /* Properties */
         'getPropertiesList'                => ['get', 'properties'],
         'searchProperties'                 => ['get', 'propertysearch'],
+        'searchLiteProperties'             => ['get', 'propertysearchlite'],
         'getPropertiesReferenceLookupList' => ['get', 'properties/reflookup'],
         'getPropertyDetails'               => ['get', 'property/%s'],
         'getPropertyImages'                => ['get', 'property/%s/images'],
