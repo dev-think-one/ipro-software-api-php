@@ -11,45 +11,45 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Trait HasApiMethods.
  *
- * @method ResponseInterface getSourcesList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Sources
- * @method ResponseInterface getBookingRulesList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Booking-Rules
- * @method ResponseInterface getBookingTagsList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Booking-Tags
- * @method ResponseInterface getLocationsList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Locations
- * @method ResponseInterface getAttributesList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Attributes
- * @method ResponseInterface getContactTypesList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Contact-Types
- * @method ResponseInterface searchContacts($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Contacts
- * @method ResponseInterface getContact($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Get-Contact
- * @method ResponseInterface getExternalContact($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/External-Contact
- * @method ResponseInterface createOrUpdateContact($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Update-Contact
- * @method ResponseInterface getPropertiesList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Properties
- * @method ResponseInterface searchProperties($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Search
- * @method ResponseInterface getPropertiesReferenceLookupList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Reference-Lookup
- * @method ResponseInterface getPropertyDetails($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Detail
- * @method ResponseInterface getPropertyImages($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Images
- * @method ResponseInterface getPropertyExtras($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Extras
- * @method ResponseInterface getPropertyRates($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Rates
- * @method ResponseInterface getPropertyCustomRates($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Custom-Rates
- * @method ResponseInterface getPropertyAvailability($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Availabilities
- * @method ResponseInterface getPropertyDayAvailability($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Day-Availabilities
- * @method ResponseInterface getPropertyBlockouts($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Blockouts
- * @method ResponseInterface getPropertyRooms($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Rooms
- * @method ResponseInterface getPropertyDistances($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Distances
- * @method ResponseInterface getPropertyAll($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-All
- * @method ResponseInterface getPropertyEnquiries($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Enquiries
- * @method ResponseInterface getPropertyWelcomepack($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Welcome-Pack
- * @method ResponseInterface createOrUpdateProperty($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Push-Property
- * @method ResponseInterface createEnquiry($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Enquiry
- * @method ResponseInterface searchBookings($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Bookings
- * @method ResponseInterface calculateBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Calculate-Booking
- * @method ResponseInterface createBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Booking
- * @method ResponseInterface updateBooking($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Update-Booking
- * @method ResponseInterface getStatementsByOwner($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Statements
- * @method ResponseInterface getReviewsList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Reviews
- * @method ResponseInterface createReview($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Review
- * @method ResponseInterface createPayment($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Payment
- * @method ResponseInterface getLateDealsList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Late-Deals
- * @method ResponseInterface getSpecialOffersList($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Special-Offers-&-Last-Minute-Deals
- * @method ResponseInterface getVouchers($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Voucher-API---Query-vouchers-to-bring-through-validation-and-price
+ * @method ResponseInterface getSourcesList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Sources
+ * @method ResponseInterface getBookingRulesList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Booking-Rules
+ * @method ResponseInterface getBookingTagsList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Booking-Tags
+ * @method ResponseInterface getLocationsList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Locations
+ * @method ResponseInterface getAttributesList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Attributes
+ * @method ResponseInterface getContactTypesList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Contact-Types
+ * @method ResponseInterface searchContacts(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Contacts
+ * @method ResponseInterface getContact(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Get-Contact
+ * @method ResponseInterface getExternalContact(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/External-Contact
+ * @method ResponseInterface createOrUpdateContact(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Update-Contact
+ * @method ResponseInterface getPropertiesList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Properties
+ * @method ResponseInterface searchProperties(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Search
+ * @method ResponseInterface getPropertiesReferenceLookupList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Reference-Lookup
+ * @method ResponseInterface getPropertyDetails(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Detail
+ * @method ResponseInterface getPropertyImages(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Images
+ * @method ResponseInterface getPropertyExtras(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Extras
+ * @method ResponseInterface getPropertyRates(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Rates
+ * @method ResponseInterface getPropertyCustomRates(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Custom-Rates
+ * @method ResponseInterface getPropertyAvailability(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Availabilities
+ * @method ResponseInterface getPropertyDayAvailability(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Day-Availabilities
+ * @method ResponseInterface getPropertyBlockouts(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Blockouts
+ * @method ResponseInterface getPropertyRooms(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Rooms
+ * @method ResponseInterface getPropertyDistances(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Distances
+ * @method ResponseInterface getPropertyAll(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-All
+ * @method ResponseInterface getPropertyEnquiries(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Enquiries
+ * @method ResponseInterface getPropertyWelcomepack(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Welcome-Pack
+ * @method ResponseInterface createOrUpdateProperty(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Push-Property
+ * @method ResponseInterface createEnquiry(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Enquiry
+ * @method ResponseInterface searchBookings(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Bookings
+ * @method ResponseInterface calculateBooking(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Calculate-Booking
+ * @method ResponseInterface createBooking(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Booking
+ * @method ResponseInterface updateBooking(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Update-Booking
+ * @method ResponseInterface getStatementsByOwner(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Statements
+ * @method ResponseInterface getReviewsList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Reviews
+ * @method ResponseInterface createReview(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Review
+ * @method ResponseInterface createPayment(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Create-Payment
+ * @method ResponseInterface getLateDealsList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Late-Deals
+ * @method ResponseInterface getSpecialOffersList(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Special-Offers-&-Last-Minute-Deals
+ * @method ResponseInterface getVouchers(...$options) https://github.com/iprosoftware/api-csharp-client/wiki/Voucher-API---Query-vouchers-to-bring-through-validation-and-price
  */
 trait HasApiMethods
 {
