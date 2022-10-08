@@ -31,6 +31,7 @@ use Psr\Http\Message\ResponseInterface;
  * @method ResponseInterface getPropertyCustomRates($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Custom-Rates
  * @method ResponseInterface getPropertyAvailability($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Availabilities
  * @method ResponseInterface getPropertyDayAvailability($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Day-Availabilities
+ * @method ResponseInterface getPropertyBlockouts($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Blockouts
  * @method ResponseInterface getPropertyRooms($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Rooms
  * @method ResponseInterface getPropertyDistances($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-Distances
  * @method ResponseInterface getPropertyAll($options = []) https://github.com/iprosoftware/api-csharp-client/wiki/Property-All
@@ -85,6 +86,7 @@ trait HasApiMethods
         'getPropertyCustomRates'           => ['get', 'property/%s/customrates'],
         'getPropertyAvailability'          => ['get', 'property/%s/availability'],
         'getPropertyDayAvailability'       => ['get', 'property/%s/dayavailability'],
+        'getPropertyBlockouts'             => ['get', 'property/%s/blockouts'],
         'getPropertyRooms'                 => ['get', 'property/%s/rooms'],
         'getPropertyDistances'             => ['get', 'property/%s/distances'],
         'getPropertyAll'                   => ['get', 'property/%s/all'],
