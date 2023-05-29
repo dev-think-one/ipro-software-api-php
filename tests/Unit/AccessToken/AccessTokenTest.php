@@ -6,6 +6,7 @@ use Angecode\IproSoftware\AccessToken\AccessToken;
 use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Stream;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
@@ -68,11 +69,11 @@ class AccessTokenTest extends TestCase
 
         $response->shouldReceive('getBody')
             ->once()
-            ->andReturn(json_encode([
-                'access_token' => uniqid(),
-                'token_type'   => 'some_type',
-                'expires_in'   => 500,
-            ]));
+            ->andReturn(new Stream(fopen('data://text/plain;base64,' . base64_encode(json_encode([
+                    'access_token' => uniqid(),
+                    'token_type'   => 'some_type',
+                    'expires_in'   => 500,
+                ])), 'r')));
 
         $accessToken = AccessToken::makeFromApiResponse($response);
 
@@ -121,7 +122,7 @@ class AccessTokenTest extends TestCase
 
         $response->shouldReceive('getBody')
             ->once()
-            ->andReturn('{}');
+            ->andReturn(new Stream(fopen('data://text/plain;base64,' . base64_encode(json_encode('{}')), 'r')));
 
         $this->expectException(IproSoftwareApiAccessTokenException::class);
 
@@ -140,7 +141,7 @@ class AccessTokenTest extends TestCase
 
         $response->shouldReceive('getBody')
             ->once()
-            ->andReturn(json_encode($data));
+            ->andReturn(new Stream(fopen('data://text/plain;base64,' . base64_encode(json_encode($data)), 'r')));
 
         $this->expectException(IproSoftwareApiAccessTokenException::class);
 
@@ -159,7 +160,7 @@ class AccessTokenTest extends TestCase
 
         $response->shouldReceive('getBody')
             ->once()
-            ->andReturn(json_encode($data));
+            ->andReturn(new Stream(fopen('data://text/plain;base64,' . base64_encode(json_encode($data)), 'r')));
 
         try {
             AccessToken::makeFromApiResponse($response);

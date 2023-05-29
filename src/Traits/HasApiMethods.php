@@ -86,6 +86,7 @@ trait HasApiMethods
         'getPropertyCustomRates'           => ['get', 'property/%s/customrates'],
         'getPropertyAvailability'          => ['get', 'property/%s/availability'],
         'getPropertyDayAvailability'       => ['get', 'property/%s/dayavailability'],
+        'getPropertyDayAvailabilityCheck'  => ['get', 'property/%s/dayavailabilitycheck'],
         'getPropertyBlockouts'             => ['get', 'property/%s/blockouts'],
         'getPropertyRooms'                 => ['get', 'property/%s/rooms'],
         'getPropertyDistances'             => ['get', 'property/%s/distances'],

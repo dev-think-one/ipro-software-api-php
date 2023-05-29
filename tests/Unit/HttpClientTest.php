@@ -14,6 +14,7 @@ use BadMethodCallException;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
@@ -63,11 +64,11 @@ class HttpClientTest extends TestCase
 
         $response->shouldReceive('getBody')
             ->once()
-            ->andReturn(json_encode([
-                'access_token' => uniqid(),
-                'token_type'   => 'some_type',
-                'expires_in'   => 300,
-            ]));
+            ->andReturn(new Stream(fopen('data://text/plain;base64,' . base64_encode(json_encode([
+                    'access_token' => uniqid(),
+                    'token_type'   => 'some_type',
+                    'expires_in'   => 300,
+                ])), 'r')));
 
         $client->shouldReceive('post')
             ->once()
