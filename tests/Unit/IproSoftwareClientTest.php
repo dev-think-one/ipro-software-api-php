@@ -1,20 +1,21 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit;
+namespace IproSoftwareApi\Tests\Unit;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\HttpClient;
-use Angecode\IproSoftware\IproSoftwareClient;
-use Angecode\IproSoftware\Tests\TestCase;
 use GuzzleHttp\Psr7\Uri;
+use IproSoftwareApi\AccessToken\NoneCacher;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\DTOs\ClientCredentials;
+use IproSoftwareApi\Exceptions\IproSoftwareApiException;
+use IproSoftwareApi\HttpClient;
+use IproSoftwareApi\IproSoftwareClient;
+use IproSoftwareApi\Tests\TestCase;
 use Mockery;
 
 class IproSoftwareClientTest extends TestCase
 {
-    public function testNoCallWithEmptyConfiguration()
+    /** @test */
+    public function no_call_with_empty_configuration()
     {
         $client = new IproSoftwareClient();
 
@@ -37,7 +38,8 @@ class IproSoftwareClientTest extends TestCase
         call_user_func([$client, $someMethod]);
     }
 
-    public function testSetHttpClient()
+    /** @test */
+    public function set_http_client()
     {
         $client = new IproSoftwareClient();
 
@@ -48,7 +50,8 @@ class IproSoftwareClientTest extends TestCase
         $this->assertEquals($httpClient, $client->httpClient());
     }
 
-    public function testSetAccessTokenCacheManager()
+    /** @test */
+    public function set_access_token_cache_manager()
     {
         $cacheManager = Mockery::mock(AccessTokenCacher::class);
         $httpClient   = Mockery::mock(HttpClient::class);
@@ -69,7 +72,8 @@ class IproSoftwareClientTest extends TestCase
         $client->setAccessTokenCacheManager($cacheManager);
     }
 
-    public function testSetAccessTokenCacheManagerReturnSelf()
+    /** @test */
+    public function set_access_token_cache_manager_return_self()
     {
         $client = new IproSoftwareClient([
             'requests_path_prefix' => '/api/v1',
@@ -82,7 +86,8 @@ class IproSoftwareClientTest extends TestCase
         $this->assertEquals($client, $client->setAccessTokenCacheManager(new NoneCacher()));
     }
 
-    public function testCreationDefaultHttpClient()
+    /** @test */
+    public function creation_default_http_client()
     {
         $apiHost = uniqid();
         $timeout = 30.0;

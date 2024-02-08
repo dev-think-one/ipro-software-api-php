@@ -1,22 +1,22 @@
 <?php
 
-namespace Angecode\IproSoftware\Contracts;
+namespace IproSoftwareApi\Contracts;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 interface HttpClient
 {
-    public function setCacheManager(AccessTokenCacher $cacheManager): self;
+    public function setCacheManager(AccessTokenCacher $cacheManager): static;
 
     /**
      * @param callable|null $responseFilter
      * @example function(ResponseInterface $response, array $options, string $path, string $method){}
-     * @return HttpClient
+     * @return static
      */
-    public function setResponseFilter(?callable $responseFilter): self;
+    public function setResponseFilter(?callable $responseFilter): static;
 
-    public function setHttp(ClientInterface $http): self;
+    public function setHttp(ClientInterface $http): static;
 
     public function getConfig($option = null);
 

@@ -1,12 +1,20 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests;
+namespace IproSoftwareApi\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use ReflectionClass;
 
 abstract class TestCase extends BaseTestCase
 {
+    protected function setUp(): void
+    {
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+        $dotenv->safeLoad();
+
+        parent::setUp();
+    }
+
     /**
      * @param $object
      * @param $property

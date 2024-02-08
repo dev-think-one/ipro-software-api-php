@@ -1,16 +1,15 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
+namespace IproSoftwareApi\Tests\Unit\AccessToken;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\Tests\TestCase;
+use IproSoftwareApi\AccessToken\NoneCacher;
+use IproSoftwareApi\Contracts\AccessToken;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\Tests\TestCase;
 
 class NoneCacherTest extends TestCase
 {
-    /** @var AccessTokenCacher */
-    protected $cacher;
+    protected AccessTokenCacher $cacher;
 
     protected function setUp(): void
     {
@@ -19,14 +18,16 @@ class NoneCacherTest extends TestCase
         $this->cacher = new NoneCacher();
     }
 
-    public function testPut()
+    /** @test */
+    public function put_to_cache()
     {
         $result = $this->cacher->put(\Mockery::mock(AccessToken::class));
 
         $this->assertTrue($result);
     }
 
-    public function testGet()
+    /** @test */
+    public function get_from_cache()
     {
         $result = $this->cacher->put(\Mockery::mock(AccessToken::class));
         $this->assertTrue($result);

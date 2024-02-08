@@ -1,9 +1,9 @@
 <?php
 
-namespace Angecode\IproSoftware\AccessToken;
+namespace IproSoftwareApi\AccessToken;
 
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
+use IproSoftwareApi\Contracts\AccessToken;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
 
 class FileCacher implements AccessTokenCacher
 {

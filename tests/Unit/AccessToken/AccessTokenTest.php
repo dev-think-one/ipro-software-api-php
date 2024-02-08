@@ -1,39 +1,43 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
+namespace IproSoftwareApi\Tests\Unit\AccessToken;
 
-use Angecode\IproSoftware\AccessToken\AccessToken;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
-use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Stream;
+use IproSoftwareApi\AccessToken\AccessToken;
+use IproSoftwareApi\Exceptions\IproSoftwareApiAccessTokenException;
+use IproSoftwareApi\Tests\TestCase;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
 class AccessTokenTest extends TestCase
 {
-    public function testIfAccessTokenValid()
+    /** @test */
+    public function is_access_token_valid()
     {
         $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->addDay()->toString());
 
         $this->assertTrue($accessToken->hasAccessToken());
     }
 
-    public function testIfAccessTokenInvalidIfEmptyToken()
+    /** @test */
+    public function access_token_invalid_if_empty_token()
     {
         $accessToken = new AccessToken('', 'some_type', '100', Carbon::now()->addDay()->toString());
 
         $this->assertFalse($accessToken->hasAccessToken());
     }
 
-    public function testIfAccessTokenInvalidIfExpired()
+    /** @test */
+    public function access_token_invalid_if_expired()
     {
         $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->subMinute()->toString());
 
         $this->assertFalse($accessToken->hasAccessToken());
     }
 
-    public function testIfAccessTokenExpired()
+    /** @test */
+    public function is_access_token_expired()
     {
         $accessToken = new AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->subMinute()->toString());
 
@@ -44,7 +48,8 @@ class AccessTokenTest extends TestCase
         $this->assertFalse($accessToken->isTokenExpired());
     }
 
-    public function testAccessTokenMakeFromJson()
+    /** @test */
+    public function make_access_token_from_json()
     {
         $accessToken = AccessToken::makeFromJson(json_encode([
             'access_token' => uniqid('', true),
@@ -56,14 +61,16 @@ class AccessTokenTest extends TestCase
         $this->assertTrue($accessToken->hasAccessToken());
     }
 
-    public function testAccessTokenMakeFromJsonReturnNull()
+    /** @test */
+    public function access_token_make_from_json_return_null()
     {
         $accessToken = AccessToken::makeFromJson('{}');
 
         $this->assertNull($accessToken);
     }
 
-    public function testAccessTokenMakeFromApiResponse()
+    /** @test */
+    public function make_access_token_from_api_response()
     {
         $response = Mockery::mock(ResponseInterface::class);
 
@@ -77,12 +84,13 @@ class AccessTokenTest extends TestCase
 
         $accessToken = AccessToken::makeFromApiResponse($response);
 
-        $this->assertInstanceOf(\Angecode\IproSoftware\Contracts\AccessToken::class, $accessToken);
+        $this->assertInstanceOf(\IproSoftwareApi\Contracts\AccessToken::class, $accessToken);
         $this->assertFalse($accessToken->isTokenExpired());
         $this->assertTrue($accessToken->hasAccessToken());
     }
 
-    public function testIfAccessTokenJsonSerialize()
+    /** @test */
+    public function is_access_token_json_serialize()
     {
         $data = [
             'access_token' => uniqid('', true),
@@ -102,7 +110,8 @@ class AccessTokenTest extends TestCase
         $this->assertEquals($encodedData, json_encode($accessToken));
     }
 
-    public function testIfAccessTokenAuthHeader()
+    /** @test */
+    public function access_token_auth_header()
     {
         $data = [
             'access_token' => uniqid(),
@@ -116,7 +125,8 @@ class AccessTokenTest extends TestCase
         $this->assertEquals('Some_type ' . $data['access_token'], $accessToken->getAuthorizationHeader());
     }
 
-    public function testMakeFromApiResponseThrowExceptionIfNotValidResponse()
+    /** @test */
+    public function make_from_api_response_throw_exception_if_not_valid_response()
     {
         $response = Mockery::mock(ResponseInterface::class);
 
@@ -129,7 +139,8 @@ class AccessTokenTest extends TestCase
         AccessToken::makeFromApiResponse($response);
     }
 
-    public function testMakeFromApiResponseThrowExceptionIfNotValidToken()
+    /** @test */
+    public function make_from_api_response_throw_exception_if_not_validt_oken()
     {
         $response = Mockery::mock(ResponseInterface::class);
 
@@ -148,7 +159,8 @@ class AccessTokenTest extends TestCase
         AccessToken::makeFromApiResponse($response);
     }
 
-    public function testAccessTokenExceptionHasResponse()
+    /** @test */
+    public function access_token_exception_contains_response_property()
     {
         $response = Mockery::mock(ResponseInterface::class);
 

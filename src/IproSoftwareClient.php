@@ -1,18 +1,18 @@
 <?php
 
-namespace Angecode\IproSoftware;
+namespace IproSoftwareApi;
 
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\Traits\HasApiMethods;
+use IproSoftwareApi\AccessToken\NoneCacher;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\DTOs\ClientCredentials;
+use IproSoftwareApi\Exceptions\IproSoftwareApiException;
+use IproSoftwareApi\Traits\HasApiMethods;
 
 class IproSoftwareClient
 {
     use HasApiMethods;
 
-    /** @var \Angecode\IproSoftware\Contracts\HttpClient */
+    /** @var \IproSoftwareApi\Contracts\HttpClient */
     protected $httpClient;
 
     /**
@@ -34,9 +34,9 @@ class IproSoftwareClient
     /**
      * @param Contracts\HttpClient $httpClient
      *
-     * @return IproSoftwareClient
+     * @return static
      */
-    public function setHttpClient(Contracts\HttpClient $httpClient): self
+    public function setHttpClient(Contracts\HttpClient $httpClient): static
     {
         $this->httpClient = $httpClient;
 
@@ -48,9 +48,9 @@ class IproSoftwareClient
      *
      * @throws IproSoftwareApiException
      *
-     * @return IproSoftwareClient
+     * @return static
      */
-    public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): self
+    public function setAccessTokenCacheManager(AccessTokenCacher $cacheManager): static
     {
         if (!($this->httpClient instanceof Contracts\HttpClient)) {
             throw new IproSoftwareApiException('A HttpClient must be set at the beginning.', 500);
@@ -82,7 +82,7 @@ class IproSoftwareClient
         }
     }
 
-    public function httpClient(): ?\Angecode\IproSoftware\Contracts\HttpClient
+    public function httpClient(): ?\IproSoftwareApi\Contracts\HttpClient
     {
         return $this->httpClient;
     }

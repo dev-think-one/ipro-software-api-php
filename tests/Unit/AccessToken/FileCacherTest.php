@@ -1,28 +1,24 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit\AccessToken;
+namespace IproSoftwareApi\Tests\Unit\AccessToken;
 
-use Angecode\IproSoftware\AccessToken\FileCacher;
-use Angecode\IproSoftware\Contracts\AccessToken;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\Tests\TestCase;
 use Carbon\Carbon;
+use IproSoftwareApi\AccessToken\FileCacher;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\Tests\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
 class FileCacherTest extends TestCase
 {
-    /** @var AccessTokenCacher */
-    protected $cacher;
+    protected AccessTokenCacher $cacher;
 
-    /** @var string */
-    protected $file = 'cache.txt';
+    protected string $file = 'cache.txt';
 
     /** @var vfsStreamDirectory */
-    protected $root;
+    protected vfsStreamDirectory $root;
 
-    /** @var AccessToken */
-    protected $accessToken;
+    protected \IproSoftwareApi\AccessToken\AccessToken $accessToken;
 
     protected function setUp(): void
     {
@@ -32,10 +28,11 @@ class FileCacherTest extends TestCase
 
         $this->cacher = new FileCacher(vfsStream::url('exampleDir/' . $this->file));
 
-        $this->accessToken = new \Angecode\IproSoftware\AccessToken\AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->addDay()->toString());
+        $this->accessToken = new \IproSoftwareApi\AccessToken\AccessToken(uniqid('', true), 'some_type', '100', Carbon::now()->addDay()->toString());
     }
 
-    public function testPut()
+    /** @test */
+    public function put_to_cache()
     {
         $result = $this->cacher->put($this->accessToken);
 
@@ -43,7 +40,8 @@ class FileCacherTest extends TestCase
         $this->assertTrue($this->root->hasChild($this->file));
     }
 
-    public function testGet()
+    /** @test */
+    public function get_from_cache()
     {
         $result = $this->cacher->put($this->accessToken);
 

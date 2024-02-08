@@ -1,6 +1,6 @@
 <?php
 
-namespace Angecode\IproSoftware\DTOs;
+namespace IproSoftwareApi\DTOs;
 
 class ClientCredentials
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Angecode\IproSoftware\Exceptions;
+namespace IproSoftwareApi\Exceptions;
 
 use GuzzleHttp\Exception\ServerException;
 

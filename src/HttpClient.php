@@ -1,15 +1,15 @@
 <?php
 
-namespace Angecode\IproSoftware;
+namespace IproSoftwareApi;
 
-use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
 use BadMethodCallException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use IproSoftwareApi\Contracts\AccessToken as AccessTokenInterface;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\DTOs\ClientCredentials;
+use IproSoftwareApi\Exceptions\IproSoftwareApiAccessTokenException;
+use IproSoftwareApi\Exceptions\IproSoftwareApiException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -86,7 +86,7 @@ class HttpClient implements Contracts\HttpClient
         $this->clientCredentials = $clientCredentials;
 
         $this->accessTokenClass = $httpConfiguration['access_token_class']
-            ?? \Angecode\IproSoftware\AccessToken\AccessToken::class;
+            ?? \IproSoftwareApi\AccessToken\AccessToken::class;
 
         $configs = $httpConfiguration['client_conf'] ?? [];
         if (!isset($configs['base_uri'])) {
@@ -116,9 +116,9 @@ class HttpClient implements Contracts\HttpClient
     /**
      * @param AccessTokenCacher $cacheManager
      *
-     * @return self
+     * @return static
      */
-    public function setCacheManager(AccessTokenCacher $cacheManager): Contracts\HttpClient
+    public function setCacheManager(AccessTokenCacher $cacheManager): static
     {
         $this->cacheManager = $cacheManager;
 
@@ -128,9 +128,9 @@ class HttpClient implements Contracts\HttpClient
     /**
      * @param callable|null $responseFilter
      *
-     * @return self
+     * @return static
      */
-    public function setResponseFilter(?callable $responseFilter): Contracts\HttpClient
+    public function setResponseFilter(?callable $responseFilter): static
     {
         $this->responseFilter = $responseFilter;
 
@@ -140,9 +140,9 @@ class HttpClient implements Contracts\HttpClient
     /**
      * @param ClientInterface $http
      *
-     * @return self
+     * @return static
      */
-    public function setHttp(ClientInterface $http): Contracts\HttpClient
+    public function setHttp(ClientInterface $http): static
     {
         $this->http = $http;
 
@@ -198,8 +198,6 @@ class HttpClient implements Contracts\HttpClient
         }
 
         return $response;
-
-        return $this->http->request($method, $path, $options);
     }
 
     /**

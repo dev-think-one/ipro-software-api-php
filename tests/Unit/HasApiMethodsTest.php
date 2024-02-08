@@ -1,18 +1,19 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit;
+namespace IproSoftwareApi\Tests\Unit;
 
-use Angecode\IproSoftware\Contracts\HttpClient;
-use Angecode\IproSoftware\Exceptions\IproServerException;
-use Angecode\IproSoftware\IproSoftwareClient;
-use Angecode\IproSoftware\Tests\TestCase;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use IproSoftwareApi\Contracts\HttpClient;
+use IproSoftwareApi\Exceptions\IproServerException;
+use IproSoftwareApi\IproSoftwareClient;
+use IproSoftwareApi\Tests\TestCase;
 
 class HasApiMethodsTest extends TestCase
 {
-    public function testGetMethodDataReturnNullThenBadMethodException()
+    /** @test */
+    public function get_wrong__method_data_return_bad_method_exception()
     {
         $client = new IproSoftwareClient();
 
@@ -21,7 +22,8 @@ class HasApiMethodsTest extends TestCase
         $client->notExxxist();
     }
 
-    public function testMergeMethodsAndRemoveMethod()
+    /** @test */
+    public function merge_methods_and_remove_method()
     {
         $client = new IproSoftwareClient();
 
@@ -32,7 +34,8 @@ class HasApiMethodsTest extends TestCase
         $this->assertFalse(in_array('newMethod', array_keys($client->getMethodsList())));
     }
 
-    public function testCallPredefinedRequest()
+    /** @test */
+    public function call_predefined_request()
     {
         $client = new IproSoftwareClient([
             'requests_path_prefix' => '/api/v1',
@@ -54,7 +57,8 @@ class HasApiMethodsTest extends TestCase
         $this->assertEquals('RETURN', $return);
     }
 
-    public function testCallPredefinedRequestThrowException()
+    /** @test */
+    public function incorrect_call_predefined_request_throw_exception()
     {
         $client = new IproSoftwareClient([
             'requests_path_prefix' => '/api/v1',

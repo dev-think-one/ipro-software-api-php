@@ -1,10 +1,10 @@
 <?php
 
-namespace Angecode\IproSoftware\AccessToken;
+namespace IproSoftwareApi\AccessToken;
 
-use Angecode\IproSoftware\Contracts\AccessToken as AccessTokenInterface;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
 use Carbon\Carbon;
+use IproSoftwareApi\Contracts\AccessToken as AccessTokenInterface;
+use IproSoftwareApi\Exceptions\IproSoftwareApiAccessTokenException;
 use Psr\Http\Message\ResponseInterface;
 
 class AccessToken implements AccessTokenInterface
@@ -84,7 +84,7 @@ class AccessToken implements AccessTokenInterface
             throw new IproSoftwareApiAccessTokenException($response, 'Get Access Token: Not Valid Response');
         }
 
-        $expiresAt                  = Carbon::now()->addSeconds($responseBody['expires_in']);
+        $expiresAt                  = Carbon::now()->addSeconds((int)($responseBody['expires_in']??0));
         $responseBody['expires_at'] = $expiresAt->toString();
 
         $accessToken = call_user_func(

@@ -1,11 +1,11 @@
 <?php
 
-namespace Angecode\IproSoftware\Traits;
+namespace IproSoftwareApi\Traits;
 
-use Angecode\IproSoftware\Exceptions\IproServerException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\HttpClient;
 use BadMethodCallException;
+use IproSoftwareApi\Exceptions\IproServerException;
+use IproSoftwareApi\Exceptions\IproSoftwareApiException;
+use IproSoftwareApi\HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -113,7 +113,7 @@ trait HasApiMethods
         'getVouchers'          => ['get', 'vouchers'],
     ];
 
-    abstract public function httpClient(): ?\Angecode\IproSoftware\Contracts\HttpClient;
+    abstract public function httpClient(): ?\IproSoftwareApi\Contracts\HttpClient;
 
     /**
      * Attempts to handle api method call.
@@ -154,9 +154,9 @@ trait HasApiMethods
     /**
      * @param string $pathPrefix
      *
-     * @return self
+     * @return static
      */
-    public function setPathPrefix(string $pathPrefix): self
+    public function setPathPrefix(string $pathPrefix): static
     {
         $this->pathPrefix = $pathPrefix;
 
@@ -182,9 +182,9 @@ trait HasApiMethods
     /**
      * @param string $method
      *
-     * @return self
+     * @return static
      */
-    public function removeMethod(string $method): self
+    public function removeMethod(string $method): static
     {
         if (isset($this->methods[$method])) {
             unset($this->methods[$method]);
@@ -196,9 +196,9 @@ trait HasApiMethods
     /**
      * @param array $methods
      *
-     * @return self
+     * @return static
      */
-    public function mergeMethods(array $methods): self
+    public function mergeMethods(array $methods): static
     {
         $this->methods = array_merge($this->methods, $methods);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Angecode\IproSoftware\Contracts;
+namespace IproSoftwareApi\Contracts;
 
 interface AccessTokenCacher
 {

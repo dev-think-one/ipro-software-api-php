@@ -1,6 +1,6 @@
 <?php
 
-namespace Angecode\IproSoftware\Exceptions;
+namespace IproSoftwareApi\Exceptions;
 
 use Psr\Http\Message\ResponseInterface;
 use Throwable;

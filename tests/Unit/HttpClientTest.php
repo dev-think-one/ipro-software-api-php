@@ -1,26 +1,26 @@
 <?php
 
-namespace Angecode\IproSoftware\Tests\Unit;
+namespace IproSoftwareApi\Tests\Unit;
 
-use Angecode\IproSoftware\AccessToken\AccessToken;
-use Angecode\IproSoftware\AccessToken\NoneCacher;
-use Angecode\IproSoftware\Contracts\AccessTokenCacher;
-use Angecode\IproSoftware\DTOs\ClientCredentials;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiAccessTokenException;
-use Angecode\IproSoftware\Exceptions\IproSoftwareApiException;
-use Angecode\IproSoftware\HttpClient;
-use Angecode\IproSoftware\Tests\TestCase;
 use BadMethodCallException;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
+use IproSoftwareApi\AccessToken\AccessToken;
+use IproSoftwareApi\AccessToken\NoneCacher;
+use IproSoftwareApi\Contracts\AccessTokenCacher;
+use IproSoftwareApi\DTOs\ClientCredentials;
+use IproSoftwareApi\Exceptions\IproSoftwareApiAccessTokenException;
+use IproSoftwareApi\Exceptions\IproSoftwareApiException;
+use IproSoftwareApi\HttpClient;
+use IproSoftwareApi\Tests\TestCase;
 use Mockery;
 use Psr\Http\Message\ResponseInterface;
 
 class HttpClientTest extends TestCase
 {
-    protected $clientCredentials;
+    protected ClientCredentials $clientCredentials;
 
     protected function setUp(): void
     {
@@ -29,14 +29,16 @@ class HttpClientTest extends TestCase
         $this->clientCredentials = new ClientCredentials(uniqid(), uniqid(), uniqid());
     }
 
-    public function testAfterInitAccessTokenIsNotValid()
+    /** @test */
+    public function after_init_access_token_is_not_valid()
     {
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
 
         $this->assertFalse($httpClient->hasAccessToken());
     }
 
-    public function testIfAccessTokenGetFromCacheThenNoNeedApiCall()
+    /** @test */
+    public function if_access_token_restored_from_cache_then_no_need_api_call()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
 
@@ -53,7 +55,8 @@ class HttpClientTest extends TestCase
         $this->assertEquals($accessToken, $httpClient->generateAccessToken());
     }
 
-    public function testIfAccessTokenNotInCacheThenNeedApiCall()
+    /** @test */
+    public function if_access_token_not_in_cache_then_need_api_call()
     {
         $response = Mockery::mock(ResponseInterface::class);
         $client   = Mockery::mock(Client::class);
@@ -82,7 +85,8 @@ class HttpClientTest extends TestCase
         $this->assertTrue($httpClient->hasAccessToken());
     }
 
-    public function testIfAccessTokenRequestReturnNot200StatusCodeThenException()
+    /** @test */
+    public function if_access_token_request_return_not_200_status_code_then_throw_exception()
     {
         $response = Mockery::mock(ResponseInterface::class);
         $client   = Mockery::mock(Client::class);
@@ -102,7 +106,8 @@ class HttpClientTest extends TestCase
         $httpClient->generateAccessToken();
     }
 
-    public function testRequest()
+    /** @test */
+    public function mocking_request()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
         $client      = Mockery::mock(Client::class);
@@ -133,7 +138,8 @@ class HttpClientTest extends TestCase
         $this->assertEquals($response, $clientResponse);
     }
 
-    public function testRequestIfExpiredAccessToken()
+    /** @test */
+    public function mocking_request_if_expired_access_token()
     {
         $accessToken      = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->subMinute()->toString());
         $validAccessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
@@ -161,7 +167,8 @@ class HttpClientTest extends TestCase
         $this->assertEquals($response, $clientResponse);
     }
 
-    public function testMagicCall()
+    /** @test */
+    public function magic_call()
     {
         $accessToken = new AccessToken(uniqid(), 'some_type', '100', Carbon::now()->addDay()->toString());
         $client      = Mockery::mock(Client::class);
@@ -191,19 +198,21 @@ class HttpClientTest extends TestCase
         $httpClient->someMethod();
     }
 
-    public function testSetCacheManager()
+    /** @test */
+    public function set_cache_manager()
     {
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
 
         $cacheManager = Mockery::mock(AccessTokenCacher::class);
 
         $this->assertInstanceOf(
-            \Angecode\IproSoftware\Contracts\HttpClient::class,
+            \IproSoftwareApi\Contracts\HttpClient::class,
             $httpClient->setCacheManager($cacheManager)
         );
     }
 
-    public function testGetConfig()
+    /** @test */
+    public function get_config()
     {
         $httpClient = new HttpClient($this->clientCredentials, new NoneCacher());
 
