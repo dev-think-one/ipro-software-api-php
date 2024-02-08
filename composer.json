@@ -21,7 +21,7 @@
     "require": {
         "php": "^8.0",
         "guzzlehttp/guzzle": "^7.0",
-        "nesbot/carbon": "^3.0"
+        "nesbot/carbon": "^2.0|^3.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",
