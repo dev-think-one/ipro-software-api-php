@@ -1,11 +1,11 @@
-# IProSoftware API client (https://www.ipro-software.com/)
+# IProSoftware [API](https://www.ipro-software.com/) client 
 
-[![Packagist License](https://img.shields.io/packagist/l/think.studio/ipro-software-api-php?color=%234dc71f)](https://github.com/think.studio/ipro-software-api-php/blob/main/LICENSE.md)
+![Packagist License](https://img.shields.io/packagist/l/think.studio/ipro-software-api-php?color=%234dc71f)
 [![Packagist Version](https://img.shields.io/packagist/v/think.studio/ipro-software-api-php)](https://packagist.org/packages/think.studio/ipro-software-api-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/think.studio/ipro-software-api-php)](https://packagist.org/packages/think.studio/ipro-software-api-php)
-[![Build Status](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/badges/build.png?b=main)](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/build-status/main)
-[![Code Coverage](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/?branch=main)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/think.studio/ipro-software-api-php/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/badges/build.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/build-status/main)
+[![Code Coverage](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dev-think-one/ipro-software-api-php/?branch=main)
 
 Unofficial [IproSoftware](https://github.com/iprosoftware/api-csharp-client/wiki) api implementation.
 
