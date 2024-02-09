@@ -25,7 +25,7 @@ class IproSoftwareClientTest extends TestCase
         // default path prefix used
         $this->assertEquals('apis/', $client->getPathPrefix());
 
-        $predefinedMethods = $client->getMethodsList();
+        $predefinedMethods = IproSoftwareClient::getMethodsList();
 
         $this->assertIsArray($predefinedMethods);
         $this->assertNotEmpty($predefinedMethods);

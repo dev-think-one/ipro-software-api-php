@@ -27,11 +27,11 @@ class HasApiMethodsTest extends TestCase
     {
         $client = new IproSoftwareClient();
 
-        $this->assertFalse(in_array('newMethod', array_keys($client->getMethodsList())));
-        $this->assertEquals($client, $client->mergeMethods(['newMethod' => []]));
-        $this->assertTrue(in_array('newMethod', array_keys($client->getMethodsList())));
-        $this->assertEquals($client, $client->removeMethod('newMethod'));
-        $this->assertFalse(in_array('newMethod', array_keys($client->getMethodsList())));
+        $this->assertFalse(in_array('newMethod', array_keys(IproSoftwareClient::getMethodsList())));
+        IproSoftwareClient::mergeMethods(['newMethod' => []]);
+        $this->assertTrue(in_array('newMethod', array_keys(IproSoftwareClient::getMethodsList())));
+        IproSoftwareClient::removeMethod('newMethod');
+        $this->assertFalse(in_array('newMethod', array_keys(IproSoftwareClient::getMethodsList())));
     }
 
     /** @test */
@@ -45,8 +45,8 @@ class HasApiMethodsTest extends TestCase
 
         $client->setHttpClient($http);
 
-        $methodName = $this->arrayKeyFirst($client->getMethodsList());
-        $signature  = $client->getMethodsList()[$methodName];
+        $methodName = $this->arrayKeyFirst(IproSoftwareClient::getMethodsList());
+        $signature  = IproSoftwareClient::getMethodsList()[$methodName];
 
         $http->shouldReceive($signature[0])
             ->once()
@@ -68,8 +68,8 @@ class HasApiMethodsTest extends TestCase
 
         $client->setHttpClient($http);
 
-        $methodName = $this->arrayKeyFirst($client->getMethodsList());
-        $signature  = $client->getMethodsList()[$methodName];
+        $methodName = $this->arrayKeyFirst(IproSoftwareClient::getMethodsList());
+        $signature  = IproSoftwareClient::getMethodsList()[$methodName];
 
         $exception = new ServerException('TEST', new Request('get', '/'), new Response());
 

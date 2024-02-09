@@ -54,14 +54,12 @@ use Psr\Http\Message\ResponseInterface;
 trait HasApiMethods
 {
     /** @var string Path prefix */
-    protected $pathPrefix = 'apis/';
+    protected string $pathPrefix = 'apis/';
 
     /**
      * Api methods list.
-     *
-     * @var array
      */
-    protected $methods = [
+    public static array $methods = [
         /* Settings */
         'getSourcesList'      => ['get', 'sources'],
         'getBookingRulesList' => ['get', 'bookingrules'],
@@ -131,7 +129,7 @@ trait HasApiMethods
             if (is_null($this->httpClient())) {
                 throw new IproSoftwareApiException('Please specify HttpClient or pass credentials to client constructor', 500);
             }
-            $pathTemplate = $this->pathPrefix . $signature[1];
+            $pathTemplate = $this->getPathPrefix() . $signature[1];
             preg_match_all('/\%/', $pathTemplate, $replacements);
             $replacementCount  = isset($replacements[0]) ? count($replacements[0]) : 0;
             $replacementParams = array_splice($parameters, 0, $replacementCount);
@@ -174,35 +172,27 @@ trait HasApiMethods
     /**
      * @return array
      */
-    public function getMethodsList(): array
+    public static function getMethodsList(): array
     {
-        return $this->methods;
+        return static::$methods;
     }
 
     /**
      * @param string $method
-     *
-     * @return static
      */
-    public function removeMethod(string $method): static
+    public static function removeMethod(string $method): void
     {
-        if (isset($this->methods[$method])) {
-            unset($this->methods[$method]);
+        if (isset(static::$methods[$method])) {
+            unset(static::$methods[$method]);
         }
-
-        return $this;
     }
 
     /**
      * @param array $methods
-     *
-     * @return static
      */
-    public function mergeMethods(array $methods): static
+    public static function mergeMethods(array $methods): void
     {
-        $this->methods = array_merge($this->methods, $methods);
-
-        return $this;
+        static::$methods = array_merge(static::$methods, $methods);
     }
 
     /**
@@ -214,13 +204,13 @@ trait HasApiMethods
      */
     protected function getMethodData($method): ?array
     {
-        $validMethod = isset($this->methods[$method])
-            && is_array($this->methods[$method])
-            && count($this->methods[$method]) >= 2
-            && in_array(strtoupper($this->methods[$method][0]), HttpClient::HTTP_METHODS);
+        $validMethod = isset(static::$methods[$method])
+            && is_array(static::$methods[$method])
+            && count(static::$methods[$method]) >= 2
+            && in_array(strtoupper(static::$methods[$method][0]), HttpClient::HTTP_METHODS);
 
         if ($validMethod) {
-            return $this->methods[$method];
+            return static::$methods[$method];
         }
 
         return null;
